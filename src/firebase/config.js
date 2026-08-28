@@ -3,17 +3,22 @@ import { getAnalytics, isSupported as isAnalyticsSupported } from "firebase/anal
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getFunctions } from "firebase/functions";
 
-// Load configuration securely from Vite environment variables
+// Load configuration securely from Vite environment variables (.env)
 export const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyC5RhoN5Jg0j-N-YNuThuHf2fn1aztg_Jc",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "scrapmandi5928.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "scrapmandi5928",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "scrapmandi5928.firebasestorage.app",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "616129398050",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:616129398050:web:9acb556e3389fd1566917b",
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-4C62KMG8F9"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "",
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || ""
 };
+
+if (!firebaseConfig.apiKey && typeof window !== "undefined") {
+  console.warn("Firebase configuration missing in .env. Please copy .env.example to .env and configure keys.");
+}
 
 // Initialize Firebase App
 export const app = initializeApp(firebaseConfig);
@@ -28,7 +33,10 @@ export const db = getFirestore(app);
 // Initialize Firebase Storage
 export const storage = getStorage(app);
 
-// Initialize Firebase Analytics conditionally in supported browser environments
+// Initialize Cloud Functions
+export const functions = getFunctions(app, "us-central1");
+
+// Initialize Firebase Analytics conditionally
 export let analytics = null;
 if (typeof window !== "undefined") {
   isAnalyticsSupported().then((supported) => {
