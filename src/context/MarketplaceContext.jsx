@@ -12,15 +12,16 @@ import {
   runTransaction
 } from "firebase/firestore";
 import { ORDER_STATES, LISTING_STATES } from "../data/categories";
+import { INITIAL_SEED_LISTINGS, INITIAL_SEED_ORDERS, INITIAL_SEED_DISPUTES } from "../data/seedData";
 import { useAuth } from "./AuthContext";
 
 const MarketplaceContext = createContext(null);
 
 export const MarketplaceProvider = ({ children }) => {
   const { userProfile, demoMode } = useAuth();
-  const [listings, setListings] = useState([]);
-  const [orders, setOrders] = useState([]);
-  const [disputes, setDisputes] = useState([]);
+  const [listings, setListings] = useState(INITIAL_SEED_LISTINGS);
+  const [orders, setOrders] = useState(INITIAL_SEED_ORDERS);
+  const [disputes, setDisputes] = useState(INITIAL_SEED_DISPUTES);
   const [reviews, setReviews] = useState([]);
   const [benchmarks, setBenchmarks] = useState([]);
   const [notifications, setNotifications] = useState([]);
@@ -33,9 +34,24 @@ export const MarketplaceProvider = ({ children }) => {
     const localDisputes = localStorage.getItem("scrapmandi_disputes");
     const localReviews = localStorage.getItem("scrapmandi_reviews");
 
-    if (localListings) setListings(JSON.parse(localListings));
-    if (localOrders) setOrders(JSON.parse(localOrders));
-    if (localDisputes) setDisputes(JSON.parse(localDisputes));
+    if (localListings) {
+      setListings(JSON.parse(localListings));
+    } else {
+      localStorage.setItem("scrapmandi_listings", JSON.stringify(INITIAL_SEED_LISTINGS));
+    }
+
+    if (localOrders) {
+      setOrders(JSON.parse(localOrders));
+    } else {
+      localStorage.setItem("scrapmandi_orders", JSON.stringify(INITIAL_SEED_ORDERS));
+    }
+
+    if (localDisputes) {
+      setDisputes(JSON.parse(localDisputes));
+    } else {
+      localStorage.setItem("scrapmandi_disputes", JSON.stringify(INITIAL_SEED_DISPUTES));
+    }
+
     if (localReviews) setReviews(JSON.parse(localReviews));
 
     // Try real-time Firestore sync if connected
