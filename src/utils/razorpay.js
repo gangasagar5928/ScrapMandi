@@ -1,6 +1,9 @@
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../firebase/config";
+
 /**
  * ScrapMandi Razorpay Checkout Integration Utility
- * Handles dynamic script loading, checkout modal triggering, and callback handlers
+ * Handles dynamic script loading, server order verification, checkout modal triggering, and callback handlers
  */
 
 export const loadRazorpayScript = () => {
@@ -17,8 +20,28 @@ export const loadRazorpayScript = () => {
   });
 };
 
+/**
+ * Call createRazorpayOrder Cloud Function for server-side order generation & amount validation
+ */
+export const createServerRazorpayOrder = async ({ orderId, amountInRupees, notes = {} }) => {
+  try {
+    const createOrderFn = httpsCallable(functions, "createRazorpayOrder");
+    const result = await createOrderFn({
+      orderId,
+      amountInRupees,
+      currency: "INR",
+      notes
+    });
+    return result.data;
+  } catch (error) {
+    console.warn("Cloud function createRazorpayOrder note (falling back to direct client checkout):", error.message);
+    return null;
+  }
+};
+
 export const initiateRazorpayPayment = async ({
   orderId,
+  razorpayOrderId = "",
   amountInRupees,
   customerName = "Scrap Trader",
   customerPhone = "+91 98112 34567",
@@ -42,8 +65,8 @@ export const initiateRazorpayPayment = async ({
     currency: "INR",
     name: "ScrapMandi Delhi NCR",
     description: `Payment for ${listingTitle}`,
-    image: "https://scrapmandi5928.firebaseapp.com/favicon.ico",
-    order_id: "", // If created via backend /createRazorpayOrder endpoint
+    image: "/logo.png",
+    order_id: razorpayOrderId || undefined, // Server-generated order ID from Cloud Function
     prefill: {
       name: customerName,
       contact: customerPhone,
@@ -60,7 +83,7 @@ export const initiateRazorpayPayment = async ({
       if (onSuccess) {
         onSuccess({
           razorpayPaymentId: response.razorpay_payment_id,
-          razorpayOrderId: response.razorpay_order_id || null,
+          razorpayOrderId: response.razorpay_order_id || razorpayOrderId || null,
           razorpaySignature: response.razorpay_signature || null,
           orderId
         });

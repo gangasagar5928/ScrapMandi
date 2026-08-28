@@ -15,7 +15,7 @@ import { Modal } from "../common/Modal";
 import { useAuth } from "../../context/AuthContext";
 import { useMarketplace } from "../../context/MarketplaceContext";
 
-import { initiateRazorpayPayment } from "../../utils/razorpay";
+import { initiateRazorpayPayment, createServerRazorpayOrder } from "../../utils/razorpay";
 
 export const OrderRequestModal = ({ isOpen, onClose, listing, onSuccess }) => {
   const { userProfile, isAuthenticated } = useAuth();
@@ -90,9 +90,23 @@ export const OrderRequestModal = ({ isOpen, onClose, listing, onSuccess }) => {
     };
 
     if (paymentMode === "gateway") {
+      const internalOrderId = `ORD_${Date.now()}`;
       try {
+        // 1. Call Cloud Function to validate amount and create server-verified Razorpay order
+        const serverOrderResult = await createServerRazorpayOrder({
+          orderId: internalOrderId,
+          amountInRupees: totalAmount,
+          notes: {
+            listingId: listing.id,
+            buyerPhone: userProfile?.phone || "",
+            quantity: `${quantity} ${listing.unit}`
+          }
+        });
+
+        // 2. Open Razorpay checkout with server-generated order ID
         await initiateRazorpayPayment({
-          orderId: `ORD_${Date.now()}`,
+          orderId: internalOrderId,
+          razorpayOrderId: serverOrderResult?.razorpayOrderId || "",
           amountInRupees: totalAmount,
           customerName: userProfile?.name || "Scrap Buyer",
           customerPhone: userProfile?.phone || "+91 98112 34567",
@@ -110,7 +124,7 @@ export const OrderRequestModal = ({ isOpen, onClose, listing, onSuccess }) => {
           }
         });
       } catch (err) {
-        console.warn("Razorpay direct checkout note (falling back to simulated gateway escrow):", err);
+        console.warn("Razorpay checkout note (falling back to simulated escrow):", err);
         await finalizeOrder("rzp_simulated_delhi_escrow");
       }
     } else {
