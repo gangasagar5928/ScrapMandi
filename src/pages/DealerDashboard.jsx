@@ -52,14 +52,14 @@ export const DealerDashboard = ({ onBrowseMore }) => {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-xl font-black text-slate-900">
-                  {userProfile?.businessName || "Singhania Steel & Alloys Ltd"}
+                  {userProfile?.businessName || "Singhania Secondary Steel & Alloys"}
                 </h1>
                 <span className="text-[10px] font-bold uppercase bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md">
-                  Verified Dealer
+                  Delhi Scrap Dealer / Mill
                 </span>
               </div>
               <p className="text-xs text-slate-500 mt-0.5">
-                Procurement Hub: {userProfile?.approxLocation || "Mayapuri Phase 2, New Delhi"} • GSTIN: {userProfile?.gstin || "07AAACS9821C1Z4"}
+                Procurement Hub: {userProfile?.approxLocation || "Mayapuri Phase 2 Secondary Rolling Unit"} • GSTIN: {userProfile?.gstin || "07AAACS9821C1Z4"}
               </p>
             </div>
           </div>

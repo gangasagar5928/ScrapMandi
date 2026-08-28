@@ -47,14 +47,14 @@ export const VendorDashboard = ({ onSelectListing }) => {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-xl font-black text-slate-900">
-                  {userProfile?.businessName || "Sharma Metals & Scrap Yard"}
+                  {userProfile?.businessName || "Sharma Loha Scrap Yard"}
                 </h1>
                 <span className="text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md">
-                  Verified Vendor
+                  Mayapuri Yard Vendor
                 </span>
               </div>
               <p className="text-xs text-slate-500 mt-0.5">
-                Yard Location: {userProfile?.approxLocation || "Mandi Gobindgarh Industrial Area, Punjab"} • GSTIN: {userProfile?.gstin || "03AABCS1429B1Z8"}
+                Yard Location: {userProfile?.approxLocation || "Mayapuri Industrial Area Phase 2, New Delhi"} • GSTIN: {userProfile?.gstin || "07AABCS1429B1Z8"}
               </p>
             </div>
           </div>

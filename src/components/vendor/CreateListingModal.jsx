@@ -21,13 +21,13 @@ export const CreateListingModal = ({ isOpen, onClose, onSuccess }) => {
 
   const [category, setCategory] = useState("ferrous");
   const [subCategory, setSubCategory] = useState("hms1");
-  const [grade, setGrade] = useState("Grade 80:20");
+  const [grade, setGrade] = useState("Heavy Structure 80:20");
   const [quantityAvailable, setQuantityAvailable] = useState("25");
   const [unit, setUnit] = useState("tonne");
-  const [pricePerUnit, setPricePerUnit] = useState("38500");
-  const [city, setCity] = useState(userProfile?.city || "Mandi Gobindgarh");
-  const [approxLocation, setApproxLocation] = useState(userProfile?.approxLocation || "Focal Point Industrial Zone");
-  const [privateAddress, setPrivateAddress] = useState(userProfile?.privateAddress || "Plot 42-B, Industrial Focal Point");
+  const [pricePerUnit, setPricePerUnit] = useState("38800");
+  const [city, setCity] = useState(userProfile?.city || "Mayapuri Scrap Yard");
+  const [approxLocation, setApproxLocation] = useState(userProfile?.approxLocation || "Mayapuri Phase 2, New Delhi");
+  const [privateAddress, setPrivateAddress] = useState(userProfile?.privateAddress || "Plot C-42/1, Mayapuri Phase 2");
   const [photoUrl, setPhotoUrl] = useState("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=80");
   const [description, setDescription] = useState("");
   const [gstApplicable, setGstApplicable] = useState(true);
