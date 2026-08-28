@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckCircle2, ShieldCheck, Award, PhoneCheck, Sparkles } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Award, Sparkles } from "lucide-react";
 
 export const TrustBadge = ({ type = "gstin", verified = true, count = 0, size = "sm" }) => {
   const sizeClasses = size === "sm" ? "text-[11px] px-2 py-0.5" : "text-xs px-2.5 py-1";
