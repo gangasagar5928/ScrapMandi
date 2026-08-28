@@ -11,14 +11,20 @@ export const Footer = ({ setActiveTab }) => {
           
           {/* Col 1: Brand & Identity */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold">
-                <Building2 className="w-5 h-5" />
+            <div className="flex items-center gap-3">
+              <img 
+                src="/logo.png" 
+                alt="ScrapMandi" 
+                className="w-12 h-12 object-contain drop-shadow-md" 
+              />
+              <div>
+                <span className="text-xl font-black tracking-tight text-white block">
+                  Scrap<span className="text-emerald-400">Mandi</span>
+                </span>
+                <span className="text-[10px] text-emerald-300 font-bold tracking-wider uppercase block">
+                  Sell • Buy • Recycle
+                </span>
               </div>
-              <span className="text-xl font-black tracking-tight text-white">
-                Scrap<span className="text-emerald-400">Mandi</span>
-                <span className="text-[10px] ml-1 text-emerald-300 font-mono">DELHI NCR</span>
-              </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Delhi NCR's dedicated B2B scrap exchange connecting local scrap yards, kabaris, recyclers, and secondary steel re-rolling mills. Direct mandi rates, zero dalal markups, and verified Dharam Kanta slips.

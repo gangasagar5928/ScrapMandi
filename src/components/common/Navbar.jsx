@@ -64,9 +64,11 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenAuth }) => {
             onClick={() => setActiveTab("landing")}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-700 to-emerald-500 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
-              <Building2 className="w-6 h-6" />
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="ScrapMandi Logo" 
+              className="w-11 h-11 object-contain group-hover:scale-105 transition-transform drop-shadow-sm" 
+            />
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="text-xl font-black tracking-tight text-slate-900">
@@ -77,7 +79,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenAuth }) => {
                 </span>
               </div>
               <p className="text-[10px] text-slate-500 font-semibold tracking-wide hidden sm:block">
-                Direct B2B Scrap Yard Trading
+                Sell • Buy • Recycle — Turning Waste Into Value
               </p>
             </div>
           </div>

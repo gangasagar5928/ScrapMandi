@@ -125,9 +125,11 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
         
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center mx-auto mb-3 shadow-md">
-            <Building2 className="w-7 h-7" />
-          </div>
+          <img 
+            src="/logo.png" 
+            alt="ScrapMandi" 
+            className="w-16 h-16 object-contain mx-auto mb-2 drop-shadow-md" 
+          />
           <h2 className="text-xl font-bold text-slate-900">
             {step === 1 && "Access Delhi Scrap Mandi"}
             {step === 2 && "Enter Verification OTP"}
