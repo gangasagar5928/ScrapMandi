@@ -1,0 +1,94 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.role == 'admin' ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'
+      );
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Listings Collection
+    match /listings/{listingId} {
+      allow read: if true; // Public marketplace discovery
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && (resource.data.vendorUid == request.auth.uid || isAdmin());
+    }
+
+    // Orders Collection
+    match /orders/{orderId} {
+      allow read: if isAuthenticated() && (
+        resource.data.dealerUid == request.auth.uid || 
+        resource.data.vendorUid == request.auth.uid || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (
+        resource.data.dealerUid == request.auth.uid || 
+        resource.data.vendorUid == request.auth.uid || 
+        isAdmin()
+      );
+      allow delete: if isAdmin();
+    }
+
+    // Payment Events Collection (Idempotent & Auditable)
+    match /paymentEvents/{eventId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+    }
+
+    // Disputes Collection
+    match /disputes/{disputeId} {
+      allow read: if isAuthenticated() && (
+        resource.data.raisedBy == request.auth.uid || 
+        resource.data.vendorUid == request.auth.uid || 
+        resource.data.dealerUid == request.auth.uid || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (
+        resource.data.raisedBy == request.auth.uid || isAdmin()
+      );
+    }
+
+    // Reviews & Ratings (Only completed orders)
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
+
+    // Notifications & Preferences
+    match /notifications/{notifId} {
+      allow read, update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated();
+    }
+
+    // Benchmark Price Snapshots (Read public)
+    match /benchmarks/{benchmarkId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Audit Logs
+    match /auditLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAuthenticated();
+    }
+  }
+}

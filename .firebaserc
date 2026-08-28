@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "scrapmandi5928"
+  },
+  "targets": {
+    "scrapmandi5928": {
+      "hosting": {
+        "scrapmandi": [
+          "scrapmandi"
+        ]
+      }
+    }
+  }
+}
