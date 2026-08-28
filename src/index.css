@@ -4,29 +4,16 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 selection:bg-brand-500 selection:text-white;
+    @apply bg-slate-50 text-slate-900 selection:bg-emerald-500 selection:text-white;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Custom scrollbar for data tables and horizontal lists */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
 /* Industrial Grid Background */
 .bg-grid-pattern {
@@ -36,25 +23,114 @@
     linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
 }
 
+/* ============================================
+   HERO BACKGROUND SLOW ZOOM (Parallax Effect)
+   ============================================ */
+@keyframes hero-bg-zoom {
+  0%   { transform: scale(1.0); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1.0); }
+}
+
+.hero-bg-zoom {
+  animation: hero-bg-zoom 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ============================================
+   LOGO FLOAT ANIMATION
+   ============================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 3.5s ease-in-out infinite;
+}
+
+/* ============================================
+   TICKER / MARQUEE SCROLL
+   ============================================ */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   SCROLL REVEAL — Intersection Observer driven
+   Triggered by adding .is-visible class via JS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }
+
+/* ============================================
+   FADE IN + SLIDE UP (one-shot on mount)
+   ============================================ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in  { animation: fadeIn  0.4s ease-out forwards; }
+.animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Badge glow */
 .badge-glow {
   box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
 }
 
-/* Fluid UI Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* ============================================
+   ACCESSIBILITY WIDGET
+   ============================================ */
+.a11y-widget {
+  font-family: inherit;
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+.a11y-btn-active {
+  background: #059669 !important;
+  color: #fff !important;
+  border-color: #059669 !important;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-out forwards;
+/* High contrast mode */
+body.high-contrast {
+  filter: contrast(1.6) saturate(0);
 }
 
-.animate-slide-up {
-  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+/* Text size classes applied to root */
+body.text-sm-mode  { font-size: 14px; }
+body.text-base-mode { font-size: 16px; }
+body.text-lg-mode  { font-size: 19px; }
+body.text-xl-mode  { font-size: 22px; }

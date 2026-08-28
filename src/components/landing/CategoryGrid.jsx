@@ -14,13 +14,14 @@ import {
 } from "lucide-react";
 import { SCRAP_CATEGORIES, MAJOR_MANDIS } from "../../data/categories";
 
+// Pexels images — reliably load without CORS issues
 const categoryPhotos = {
-  ferrous: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?w=800&auto=format&fit=crop&q=80",
-  non_ferrous: "https://images.unsplash.com/photo-1618764400608-9e7115eabb7c?w=800&auto=format&fit=crop&q=80",
-  paper: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=800&auto=format&fit=crop&q=80",
-  plastic: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&auto=format&fit=crop&q=80",
-  ewaste: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop&q=80",
-  rubber_glass: "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?w=800&auto=format&fit=crop&q=80"
+  ferrous:      "https://images.pexels.com/photos/6069112/pexels-photo-6069112.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+  non_ferrous:  "https://images.pexels.com/photos/162634/metal-pipe-copper-gold-162634.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+  paper:        "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+  plastic:      "https://images.pexels.com/photos/1550835/pexels-photo-1550835.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+  ewaste:       "https://images.pexels.com/photos/1104767/pexels-photo-1104767.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+  rubber_glass: "https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
 };
 
 const iconMap = {
@@ -66,11 +67,11 @@ export const CategoryGrid = ({ onSelectCategory, setActiveTab }) => {
               <div
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
-                className="group relative rounded-3xl overflow-hidden border border-slate-800 hover:border-emerald-500/60 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[300px]"
+                className={`group relative rounded-3xl overflow-hidden border border-slate-800 hover:border-emerald-500/60 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[300px] reveal reveal-delay-${(SCRAP_CATEGORIES.indexOf(cat) % 3) + 1}`}
               >
-                {/* 4K Background Image with Hover Zoom */}
+                {/* Background Image with Hover Zoom */}
                 <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110 bg-slate-800"
                   style={{ backgroundImage: `url('${photo}')` }}
                 />
 

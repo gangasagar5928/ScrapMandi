@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "./components/common/Navbar";
 import { Footer } from "./components/common/Footer";
+import { AccessibilityWidget } from "./components/common/AccessibilityWidget";
 import { LandingPage } from "./pages/LandingPage";
 import { BrowseListingsPage } from "./pages/BrowseListingsPage";
 import { ListingDetailPage } from "./pages/ListingDetailPage";
@@ -14,6 +15,7 @@ import { CreateListingModal } from "./components/vendor/CreateListingModal";
 import { OrderRequestModal } from "./components/order/OrderRequestModal";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { MarketplaceProvider, useMarketplace } from "./context/MarketplaceContext";
+
 
 function MainApp() {
   const { role, isAuthenticated } = useAuth();
@@ -180,6 +182,9 @@ function MainApp() {
           navigateToTab("dealer-dashboard", "dealer-dashboard");
         }}
       />
+
+      {/* Global Accessibility Widget — always visible */}
+      <AccessibilityWidget />
 
     </div>
   );
