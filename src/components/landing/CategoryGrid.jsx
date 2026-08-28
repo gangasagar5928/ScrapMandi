@@ -14,6 +14,15 @@ import {
 } from "lucide-react";
 import { SCRAP_CATEGORIES, MAJOR_MANDIS } from "../../data/categories";
 
+const categoryPhotos = {
+  ferrous: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?w=800&auto=format&fit=crop&q=80",
+  non_ferrous: "https://images.unsplash.com/photo-1618764400608-9e7115eabb7c?w=800&auto=format&fit=crop&q=80",
+  paper: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=800&auto=format&fit=crop&q=80",
+  plastic: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&auto=format&fit=crop&q=80",
+  ewaste: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop&q=80",
+  rubber_glass: "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?w=800&auto=format&fit=crop&q=80"
+};
+
 const iconMap = {
   Hammer: Hammer,
   Coins: Coins,
@@ -25,63 +34,84 @@ const iconMap = {
 
 export const CategoryGrid = ({ onSelectCategory, setActiveTab }) => {
   return (
-    <div className="py-16 bg-white border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-20 bg-slate-900 text-white relative overflow-hidden border-b border-slate-800">
+      
+      {/* Ambient background lighting */}
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs uppercase font-bold tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-            Delhi NCR Scrap Categories
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 mt-3 tracking-tight">
-            Trade Industrial Scrap by Standard Grade
+        {/* Section Header with Logo Icon */}
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4">
+            <img src="/logo.png" alt="Logo" className="w-4 h-4 object-contain" />
+            <span>Delhi NCR Scrap Streams</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+            Trade High-Liquidity Scrap by Grade
           </h2>
-          <p className="text-slate-500 text-xs sm:text-sm mt-2">
-            Real mandi rates for secondary rolling mills, foundries, and plastic dana units in Delhi, Haryana & UP border.
+          <p className="text-slate-400 text-xs sm:text-sm mt-3 max-w-xl mx-auto leading-relaxed">
+            Spot rate benchmarks and direct yard lots for secondary rolling mills, foundries, and plastic dana units in Delhi NCR.
           </p>
         </div>
 
-        {/* Categories 6-Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {/* 4K Visual Category 6-Grid with Image Cards & Dark Gradient Overlays */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {SCRAP_CATEGORIES.map((cat) => {
             const IconComponent = iconMap[cat.icon] || Hammer;
+            const photo = categoryPhotos[cat.id] || categoryPhotos.ferrous;
+
             return (
               <div
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
-                className="group relative bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+                className="group relative rounded-3xl overflow-hidden border border-slate-800 hover:border-emerald-500/60 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[300px]"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <IconComponent className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-bold text-slate-400 group-hover:text-emerald-600 flex items-center gap-1">
-                      Check Lots <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
+                {/* 4K Background Image with Hover Zoom */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
+                  style={{ backgroundImage: `url('${photo}')` }}
+                />
 
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition">
-                    {cat.name}
-                  </h3>
-                  <p className="text-xs text-slate-500 font-semibold mb-2">
-                    {cat.hindiName}
-                  </p>
-                  <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                    {cat.description}
-                  </p>
+                {/* Dark Vignette Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/40 group-hover:via-slate-950/70 transition-colors" />
+
+                {/* Top Badge Area */}
+                <div className="relative z-10 p-6 flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-900/90 backdrop-blur-md text-emerald-400 border border-slate-700/80 flex items-center justify-center group-hover:scale-110 group-hover:border-emerald-500 transition-all">
+                    <IconComponent className="w-6 h-6" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-300 group-hover:text-emerald-400 flex items-center gap-1.5 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-slate-700">
+                    <span>Inspect Lots</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 </div>
 
-                {/* Subcategories preview tags */}
-                <div className="pt-3 border-t border-slate-200/80">
-                  <div className="flex flex-wrap gap-1.5">
+                {/* Bottom Content Area */}
+                <div className="relative z-10 p-6 pt-0 space-y-3">
+                  <div>
+                    <h3 className="text-xl font-black text-white group-hover:text-emerald-300 transition">
+                      {cat.name}
+                    </h3>
+                    <p className="text-xs text-emerald-400 font-semibold mt-0.5">
+                      {cat.hindiName}
+                    </p>
+                  </div>
+
+                  <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                    {cat.description}
+                  </p>
+
+                  {/* Subcategory Pills */}
+                  <div className="pt-2 flex flex-wrap gap-1.5">
                     {cat.subcategories.slice(0, 3).map(sub => (
-                      <span key={sub.id} className="text-[10px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded-md font-medium">
+                      <span key={sub.id} className="text-[10px] bg-slate-900/90 backdrop-blur-md border border-slate-700 text-slate-200 px-2 py-0.5 rounded-lg font-medium">
                         {sub.name}
                       </span>
                     ))}
                     {cat.subcategories.length > 3 && (
-                      <span className="text-[10px] bg-emerald-50 text-emerald-800 px-1.5 py-0.5 rounded font-bold">
+                      <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-lg font-bold border border-emerald-500/30">
                         +{cat.subcategories.length - 3} more
                       </span>
                     )}
@@ -92,102 +122,90 @@ export const CategoryGrid = ({ onSelectCategory, setActiveTab }) => {
           })}
         </div>
 
-        {/* How ScrapMandi Works for Delhi NCR */}
-        <div className="bg-slate-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl overflow-hidden relative border border-slate-800">
+        {/* How ScrapMandi Works with 4K Visual Cards */}
+        <div className="bg-slate-950/90 backdrop-blur-xl text-white rounded-3xl p-8 sm:p-12 shadow-2xl overflow-hidden relative border border-slate-800">
           <div className="relative z-10">
-            <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="text-xs uppercase font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="text-xs uppercase font-bold text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/20">
                 Direct Yard Settlement
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-white mt-3">
+              <h3 className="text-2xl sm:text-4xl font-black text-white mt-3 tracking-tight">
                 How ScrapMandi Works in Delhi NCR
               </h3>
               <p className="text-xs sm:text-sm text-slate-400 mt-2">
-                Simple, transparent yard coordination without middlemen.
+                Simple, transparent yard coordination without middlemen dalals.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               
               {/* For Yard Owners (Sellers) */}
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+              <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-3xl p-7 space-y-4 hover:border-emerald-500/50 transition">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 font-black text-lg flex items-center justify-center border border-emerald-500/30">
                     1
                   </div>
-                  <h4 className="text-base font-bold text-white">For Yard Owners & Sellers (Mayapuri / Bawana)</h4>
+                  <div>
+                    <h4 className="text-base font-bold text-white">For Yard Owners (Sellers)</h4>
+                    <p className="text-xs text-emerald-400">Mayapuri • Mundka • Bawana</p>
+                  </div>
                 </div>
                 <ul className="space-y-3 text-xs text-slate-300">
-                  <li className="flex items-start gap-2">
+                  <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                     <span><strong>1-Minute Post:</strong> Put your available lot quantity, grade, and rate per kg/tonne.</span>
                   </li>
-                  <li className="flex items-start gap-2">
+                  <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                     <span><strong>Yard Address Privacy:</strong> Your exact gate location is shared only after the buyer confirms payment.</span>
                   </li>
-                  <li className="flex items-start gap-2">
+                  <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                     <span><strong>Direct Bank Payout:</strong> Payout released immediately once weighbridge slip is signed at the gate.</span>
                   </li>
                 </ul>
                 <button
                   onClick={() => setActiveTab("vendor-dashboard")}
-                  className="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs transition text-center"
+                  className="w-full mt-3 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-black py-3 rounded-xl text-xs transition text-center shadow-lg shadow-emerald-600/20"
                 >
                   Post Your Yard Lot Now →
                 </button>
               </div>
 
               {/* For Dealers & Mills (Buyers) */}
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+              <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-3xl p-7 space-y-4 hover:border-blue-500/50 transition">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 font-black text-lg flex items-center justify-center border border-blue-500/30">
                     2
                   </div>
-                  <h4 className="text-base font-bold text-white">For Secondary Mills & Dealers (Buyers)</h4>
+                  <div>
+                    <h4 className="text-base font-bold text-white">For Secondary Mills & Dealers (Buyers)</h4>
+                    <p className="text-xs text-blue-400">Wazirpur • Okhla • Faridabad</p>
+                  </div>
                 </div>
                 <ul className="space-y-3 text-xs text-slate-300">
-                  <li className="flex items-start gap-2">
+                  <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                     <span><strong>Live Stock Visibility:</strong> Find verified stock in Mayapuri, Mundka, or Wazirpur without making 30 phone calls.</span>
                   </li>
-                  <li className="flex items-start gap-2">
+                  <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                     <span><strong>Lock Spot Price:</strong> Lock full or partial truckload quantity with instant inventory reservation.</span>
                   </li>
-                  <li className="flex items-start gap-2">
+                  <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                     <span><strong>Dharam Kanta Weight Protection:</strong> Funds held securely until weight slip matches billed tonnage.</span>
                   </li>
                 </ul>
                 <button
                   onClick={() => setActiveTab("browse")}
-                  className="w-full mt-2 bg-slate-800 hover:bg-slate-750 text-white font-bold py-2.5 rounded-xl text-xs border border-slate-700 transition text-center"
+                  className="w-full mt-3 bg-slate-800 hover:bg-slate-750 text-white font-bold py-3 rounded-xl text-xs border border-slate-700 transition text-center"
                 >
                   Browse Available Lots →
                 </button>
               </div>
 
             </div>
-          </div>
-        </div>
-
-        {/* Delhi NCR Scrap Hubs Strip */}
-        <div className="mt-16">
-          <div className="text-center mb-6">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-              Active Scrap Hubs Across Delhi NCR
-            </h4>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 text-center">
-            {MAJOR_MANDIS.slice(0, 5).map((m, idx) => (
-              <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                <p className="font-bold text-slate-900 text-xs">{m.city}</p>
-                <p className="text-[11px] text-emerald-700 font-semibold">{m.tag}</p>
-                <p className="text-[10px] text-slate-400 mt-0.5">{m.region}</p>
-              </div>
-            ))}
           </div>
         </div>
 
