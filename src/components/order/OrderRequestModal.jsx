@@ -21,11 +21,19 @@ export const OrderRequestModal = ({ isOpen, onClose, listing, onSuccess }) => {
 
   const [quantity, setQuantity] = useState(listing ? Math.min(5, listing.quantityAvailable) : 1);
   const [deliveryType, setDeliveryType] = useState("ex_yard"); // "ex_yard" | "mill_delivery"
-  const [deliveryAddress, setDeliveryAddress] = useState(userProfile?.approxLocation || "Singhania Mill Yard, Phase 2");
+  const [deliveryAddress, setDeliveryAddress] = useState(userProfile?.approxLocation || "Mayapuri Phase 2 Secondary Rolling Mill");
   const [paymentMode, setPaymentMode] = useState("gateway"); // "gateway" | "cash"
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Re-sync quantity when listing changes
+  React.useEffect(() => {
+    if (listing) {
+      setQuantity(Math.min(5, listing.quantityAvailable || 1));
+      setError("");
+    }
+  }, [listing]);
 
   if (!listing) return null;
 

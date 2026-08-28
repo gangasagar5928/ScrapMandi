@@ -31,9 +31,9 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
   const [profileData, setProfileData] = useState({
     name: "",
     businessName: "",
-    city: "Delhi-NCR",
+    city: "Mayapuri Scrap Yard",
     state: "Delhi",
-    approxLocation: "Mayapuri Industrial Area",
+    approxLocation: "Mayapuri Phase 2, New Delhi",
     privateAddress: "",
     gstin: "",
     whatsappSame: true
@@ -51,7 +51,6 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
     
     setLoading(true);
     try {
-      // If Firebase Phone Auth recaptcha is available
       const formattedPhone = phone.startsWith("+91") ? phone : `+91${phone}`;
       try {
         const appVerifier = setupRecaptcha("recaptcha-container");
@@ -60,7 +59,6 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
         setStep(2);
       } catch (phoneErr) {
         console.warn("Phone OTP fallback active (simulated OTP for testing):", phoneErr);
-        // Fallback for dev/test mode
         setStep(2);
       }
     } catch (err) {
@@ -83,10 +81,10 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
       if (confirmationResult) {
         await confirmationResult.confirm(otp);
       }
-      setStep(3); // Proceed to business onboarding details
+      setStep(3);
     } catch (err) {
       console.warn("OTP confirm note:", err);
-      setStep(3); // dev bypass
+      setStep(3);
     } finally {
       setLoading(false);
     }
@@ -127,18 +125,18 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
         
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center mx-auto mb-3 shadow-md">
+          <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center mx-auto mb-3 shadow-md">
             <Building2 className="w-7 h-7" />
           </div>
           <h2 className="text-xl font-bold text-slate-900">
-            {step === 1 && "Access India's Scrap Exchange"}
+            {step === 1 && "Access Delhi Scrap Mandi"}
             {step === 2 && "Enter Verification OTP"}
-            {step === 3 && "Complete Business Profile"}
+            {step === 3 && "Complete Yard Profile"}
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            {step === 1 && "Phone OTP authentication & accredited onboarding"}
+            {step === 1 && "Direct trading for Mayapuri, Mundka, Bawana & Wazirpur"}
             {step === 2 && `OTP sent to ${phone || "+91 98765 43210"}`}
-            {step === 3 && "Configure trading credentials and verified location"}
+            {step === 3 && "Configure trading credentials and Delhi NCR yard location"}
           </p>
         </div>
 
@@ -151,14 +149,14 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
 
         <div id="recaptcha-container"></div>
 
-        {/* STEP 1: Phone OTP / Google Sign-In */}
+        {/* STEP 1: Phone OTP / Demo */}
         {step === 1 && (
           <div className="space-y-4">
             
             {/* Role selector tab */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                I want to join ScrapMandi as:
+                Join ScrapMandi as:
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -171,7 +169,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
                   }`}
                 >
                   <Building className="w-4 h-4 text-emerald-600" />
-                  <span>Vendor (Seller / Yard)</span>
+                  <span>Yard Vendor (Seller)</span>
                 </button>
 
                 <button
@@ -184,7 +182,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
                   }`}
                 >
                   <User className="w-4 h-4 text-emerald-600" />
-                  <span>Dealer (Buyer / Foundry)</span>
+                  <span>Dealer / Mill (Buyer)</span>
                 </button>
               </div>
             </div>
@@ -193,7 +191,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
             <form onSubmit={handleSendOtp} className="space-y-3">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Mobile Number (India +91)
+                  Mobile Number (Delhi NCR)
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-2.5 text-xs font-bold text-slate-400">
@@ -204,7 +202,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
                     maxLength={10}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                    placeholder="98765 43210"
+                    placeholder="98112 34567"
                     className="w-full pl-12 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium text-slate-900 focus:bg-white focus:border-emerald-500 focus:outline-none"
                     required
                   />
@@ -216,7 +214,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
                 disabled={loading}
                 className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition flex items-center justify-center gap-2"
               >
-                <span>{loading ? "Sending OTP..." : "Continue with Phone OTP"}</span>
+                <span>{loading ? "Sending OTP..." : "Continue with Mobile OTP"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
@@ -224,7 +222,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
             <div className="relative my-4">
               <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200" /></div>
               <div className="relative flex justify-center text-[10px] uppercase font-bold text-slate-400 bg-white px-2">
-                Instant Demo Access (1-Click)
+                1-Click Demo Profiles (Delhi NCR)
               </div>
             </div>
 
@@ -237,9 +235,9 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
               >
                 <span className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-emerald-600" />
-                  Test as Vendor: Rajesh Sharma (Mandi Gobindgarh)
+                  Test as Yard Seller: Rajesh Sharma (Mayapuri Phase 2)
                 </span>
-                <span className="text-[10px] bg-emerald-200 text-emerald-800 px-1.5 py-0.5 rounded">Seller</span>
+                <span className="text-[10px] bg-emerald-200 text-emerald-800 px-1.5 py-0.5 rounded">Vendor</span>
               </button>
 
               <button
@@ -249,7 +247,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
               >
                 <span className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-blue-600" />
-                  Test as Dealer: Vikram Singhania (Delhi-NCR Mill)
+                  Test as Buyer / Mill: Vikram Singhania (Delhi-NCR)
                 </span>
                 <span className="text-[10px] bg-blue-200 text-blue-800 px-1.5 py-0.5 rounded">Buyer</span>
               </button>
@@ -261,7 +259,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
               >
                 <span className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-purple-600" />
-                  Test as Ops Admin: Platform Moderation & Disputes
+                  Test as Operations Admin: Kanta & Dispute Desk
                 </span>
                 <span className="text-[10px] bg-purple-200 text-purple-800 px-1.5 py-0.5 rounded">Admin</span>
               </button>
@@ -270,7 +268,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
           </div>
         )}
 
-        {/* STEP 2: OTP Verification */}
+        {/* STEP 2: OTP */}
         {step === 2 && (
           <form onSubmit={handleVerifyOtp} className="space-y-4">
             <div>
@@ -287,7 +285,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
                 required
               />
               <p className="text-[11px] text-slate-400 mt-1.5 text-center">
-                For demo/testing, you can enter any 6 digits (e.g. 123456)
+                For demo testing, you can enter any 6 digits (e.g. 123456)
               </p>
             </div>
 
@@ -309,12 +307,12 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
           </form>
         )}
 
-        {/* STEP 3: Complete Onboarding Profile */}
+        {/* STEP 3: Complete Profile */}
         {step === 3 && (
           <form onSubmit={handleCompleteProfile} className="space-y-3">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Authorized Contact Name
+                Contact Person Name
               </label>
               <input
                 type="text"
@@ -328,13 +326,13 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Business / Yard Name
+                Yard / Firm Name
               </label>
               <input
                 type="text"
                 value={profileData.businessName}
                 onChange={(e) => setProfileData({ ...profileData, businessName: e.target.value })}
-                placeholder="e.g. Singh Scrap Traders & Recycling"
+                placeholder="e.g. Singh Loha & Scrap Yard"
                 className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs"
                 required
               />
@@ -343,7 +341,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Primary Mandi City
+                  Delhi NCR Mandi Hub
                 </label>
                 <select
                   value={profileData.city}
@@ -351,14 +349,14 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs font-medium"
                 >
                   {MAJOR_MANDIS.map((m, idx) => (
-                    <option key={idx} value={m.city}>{m.city} ({m.state})</option>
+                    <option key={idx} value={m.city}>{m.city} ({m.region})</option>
                   ))}
                 </select>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  GSTIN (Optional for MVP)
+                  GSTIN (Optional)
                 </label>
                 <input
                   type="text"
@@ -373,19 +371,16 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Public Approximate Location
+                Public Approximate Yard Area
               </label>
               <input
                 type="text"
                 value={profileData.approxLocation}
                 onChange={(e) => setProfileData({ ...profileData, approxLocation: e.target.value })}
-                placeholder="e.g. Mayapuri Phase 2 / Focal Point"
+                placeholder="e.g. Mayapuri Phase 2 / Bawana Sector 3"
                 className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs"
                 required
               />
-              <p className="text-[10px] text-slate-400 mt-0.5">
-                Exact private yard address is protected and only shared upon order confirmation.
-              </p>
             </div>
 
             <button
@@ -393,7 +388,7 @@ export const AuthPage = ({ isOpen, onClose, initialRole = "dealer" }) => {
               disabled={loading}
               className="w-full mt-2 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition"
             >
-              {loading ? "Saving Profile..." : "Complete Setup & Enter Exchange"}
+              {loading ? "Saving Profile..." : "Complete Setup & Enter Mandi"}
             </button>
           </form>
         )}

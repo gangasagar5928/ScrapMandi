@@ -74,10 +74,10 @@ export const BrowseListingsPage = ({
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                Live Scrap Yard Listings
+                Delhi NCR Scrap Lots
               </h1>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                Accredited spot material ready for inspection and mill dispatch across India.
+                Spot scrap available in Mayapuri, Mundka, Bawana, Wazirpur, and Okhla yards.
               </p>
             </div>
 
@@ -86,13 +86,13 @@ export const BrowseListingsPage = ({
               className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm flex items-center gap-2 transition self-start md:self-auto"
             >
               <PlusCircle className="w-4 h-4" />
-              Post Scrap Lot (Vendor)
+              Post Yard Lot (Sell)
             </button>
           </div>
 
           <PriceDisclaimer 
-            sampleSize={filteredListings.length > 0 ? filteredListings.length : 18} 
-            region={filters.mandi === "all" ? "All Major Mandis" : filters.mandi} 
+            sampleSize={filteredListings.length > 0 ? filteredListings.length : 24} 
+            region={filters.mandi === "all" ? "Delhi NCR Mandis" : filters.mandi} 
           />
         </div>
 

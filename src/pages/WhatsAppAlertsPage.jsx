@@ -52,14 +52,14 @@ export const WhatsAppAlertsPage = () => {
             <MessageSquare className="w-6 h-6" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            WhatsApp Daily Mandi Rate Digest
+            Delhi Mandi WhatsApp Bhav Alert
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Receive verified spot benchmark rates and high-liquidity yard alerts directly on WhatsApp. 100% opt-in with single-click STOP unsubscribe.
+            Get 9:00 AM daily scrap benchmark rates for Mayapuri, Mundka, Bawana & Wazirpur directly on WhatsApp. Reply STOP anytime to cancel.
           </p>
         </div>
 
-        {/* 2-Column Grid: Config Form vs WhatsApp Live Simulator */}
+        {/* 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* Left Column: Preferences Form */}
@@ -67,17 +67,17 @@ export const WhatsAppAlertsPage = () => {
             <form onSubmit={handleSave} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
               
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                <h3 className="font-bold text-sm text-slate-900">Digest Notification Settings</h3>
+                <h3 className="font-bold text-sm text-slate-900">Delhi Scrap Alert Settings</h3>
                 <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
-                  Meta BSP Verified
+                  Verified Service
                 </span>
               </div>
 
               {/* Opt-In Toggle */}
               <div className="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200">
                 <div>
-                  <p className="text-xs font-bold text-slate-900">WhatsApp Digest Subscription</p>
-                  <p className="text-[11px] text-slate-500">Receive morning spot benchmark summary</p>
+                  <p className="text-xs font-bold text-slate-900">Daily WhatsApp Morning Bhav</p>
+                  <p className="text-[11px] text-slate-500">Receive 9:00 AM spot scrap rates on WhatsApp</p>
                 </div>
                 <button
                   type="button"
@@ -93,7 +93,7 @@ export const WhatsAppAlertsPage = () => {
               {/* Phone Input */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                  Registered WhatsApp Number
+                  WhatsApp Mobile Number (Delhi NCR)
                 </label>
                 <input
                   type="tel"
@@ -107,7 +107,7 @@ export const WhatsAppAlertsPage = () => {
               {/* Category Filter Pills */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                  Select Recyclable Streams for Digest
+                  Select Scrap Streams
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {SCRAP_CATEGORIES.map(cat => {
@@ -134,15 +134,15 @@ export const WhatsAppAlertsPage = () => {
               {/* Schedule */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                  Delivery Frequency
+                  Alert Timing
                 </label>
                 <select
                   value={frequency}
                   onChange={(e) => setFrequency(e.target.value)}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-900"
                 >
-                  <option value="daily_morning">Daily Morning Digest (09:00 AM IST)</option>
-                  <option value="twice_daily">Morning + Evening Settlement Digest (09:00 AM & 06:00 PM)</option>
+                  <option value="daily_morning">Daily Morning Opening Bhav (09:00 AM)</option>
+                  <option value="twice_daily">Morning Opening + Evening Closing Rates</option>
                 </select>
               </div>
 
@@ -152,12 +152,11 @@ export const WhatsAppAlertsPage = () => {
                 className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition flex items-center justify-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4" />
-                <span>{saved ? "Preferences Saved Successfully!" : "Save Notification Preferences"}</span>
+                <span>{saved ? "Alert Settings Saved!" : "Save Alert Settings"}</span>
               </button>
 
-              {/* PRD Compliance Unsubscribe Notice */}
               <p className="text-[11px] text-slate-400 text-center leading-relaxed">
-                Reply <strong>STOP</strong> at any time to immediately unsubscribe from automated digests. ScrapMandi complies with TRAI & Meta Business Platform spam safeguards.
+                Reply <strong>STOP</strong> at any time to immediately stop receiving rate messages.
               </p>
 
             </form>
@@ -167,10 +166,10 @@ export const WhatsAppAlertsPage = () => {
           <div className="lg:col-span-6 flex flex-col items-center">
             <div className="w-full max-w-sm bg-slate-900 rounded-[2.5rem] p-4 shadow-2xl border-4 border-slate-800">
               
-              {/* Phone Speaker & Camera notch */}
+              {/* Phone Notch */}
               <div className="w-32 h-4 bg-slate-800 rounded-full mx-auto mb-3"></div>
 
-              {/* WhatsApp App Mockup */}
+              {/* WhatsApp Mockup */}
               <div className="bg-[#0b141a] rounded-[1.8rem] overflow-hidden text-white border border-slate-800 text-xs">
                 
                 {/* WA Top Bar */}
@@ -180,10 +179,10 @@ export const WhatsAppAlertsPage = () => {
                   </div>
                   <div>
                     <div className="flex items-center gap-1">
-                      <p className="font-bold text-xs">ScrapMandi Official</p>
+                      <p className="font-bold text-xs">ScrapMandi Delhi</p>
                       <CheckCircle2 className="w-3 h-3 text-emerald-400 fill-emerald-400" />
                     </div>
-                    <p className="text-[10px] text-slate-400">Verified Business Account</p>
+                    <p className="text-[10px] text-slate-400">Delhi NCR Mandi Desk</p>
                   </div>
                 </div>
 
@@ -192,26 +191,26 @@ export const WhatsAppAlertsPage = () => {
                   
                   <div className="bg-[#005c4b] text-slate-100 p-3.5 rounded-2xl rounded-tl-none space-y-2 shadow">
                     <p className="font-bold text-emerald-200 text-xs">
-                      📊 Daily Mandi Spot Benchmark • {new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      📊 Delhi Mandi Opening Bhav • {new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </p>
                     <p className="text-[11px] text-slate-200 leading-relaxed">
-                      Good morning! Here is today's indicative spot price average derived from 50+ qualifying listings:
+                      Namaste! Here are today's morning spot rates across Delhi NCR yards:
                     </p>
 
                     <div className="space-y-1 bg-[#025143] p-2 rounded-lg text-[11px] font-mono">
-                      <p>• <strong>HMS 1 Heavy Steel:</strong> ₹38,500/t (Mandi Gobindgarh)</p>
-                      <p>• <strong>Copper Armature:</strong> ₹765/kg (Delhi-NCR)</p>
-                      <p>• <strong>Aluminium 6063:</strong> ₹215/kg (Chennai)</p>
-                      <p>• <strong>OCC Cardboard:</strong> ₹15.50/kg (Vapi)</p>
+                      <p>• <strong>HMS 1 Loha:</strong> ₹38,800/t (Mayapuri)</p>
+                      <p>• <strong>Copper 99% Wire:</strong> ₹775/kg (Naraina)</p>
+                      <p>• <strong>Peetal Honey Purza:</strong> ₹490/kg (Wazirpur)</p>
+                      <p>• <strong>OCC Gatta Bales:</strong> ₹16.00/kg (Bawana)</p>
                     </div>
 
                     <p className="text-[10px] text-emerald-300">
-                      ⚡ 8 new spot lots added in the last 2 hours.
+                      ⚡ 14 new truckloads listed this morning.
                     </p>
 
                     <div className="pt-2 border-t border-[#046e5b] text-[10px] text-slate-300">
-                      <p>Generated at 09:00 AM IST • Indicative only</p>
-                      <p className="text-[9px] text-slate-400 mt-1">Reply STOP to opt-out.</p>
+                      <p>Rates at 09:00 AM • Dharam Kanta weight slip</p>
+                      <p className="text-[9px] text-slate-400 mt-1">Reply STOP to unsubscribe.</p>
                     </div>
                   </div>
 
