@@ -3,15 +3,28 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-slate-50 text-slate-900 selection:bg-emerald-500 selection:text-white;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-tap-highlight-color: transparent;
+    touch-action: pan-y;
   }
 }
 
+/* GPU promotion for fixed elements to eliminate mobile scroll stutter */
+nav, header, .fixed {
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 /* Custom scrollbar */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
