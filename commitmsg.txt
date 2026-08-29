@@ -1,1 +1,1 @@
-feat: remove scroll animations, add mobile navigation bar, create flutter app Scrapmandi with official logo
+fix(flutter): fix EdgeInsets constructor, declarative gradle dsl, and androidX configuration
