@@ -115,21 +115,21 @@ export const AccessibilityWidget = () => {
       {/* Hidden container for Google Translate */}
       <div id="google_translate_element" className="hidden" />
 
-      {/* Floating trigger button in ScrapMandi green theme */}
+      {/* Floating Accessibility Trigger Button - elevated above mobile nav bar */}
       <button
         onClick={() => setOpen(o => !o)}
         aria-label="Accessibility Settings"
         title="Accessibility (सुगम्यता)"
-        className="fixed bottom-6 right-6 z-[999] w-12 h-12 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-2xl shadow-emerald-600/40 flex items-center justify-center transition-all hover:scale-110 active:scale-95 border-2 border-emerald-400/40 cursor-pointer"
+        className="fixed bottom-20 right-3.5 md:bottom-6 md:right-6 z-[890] w-11 h-11 md:w-12 md:h-12 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-600/30 flex items-center justify-center transition-all hover:scale-105 active:scale-95 border-2 border-emerald-400/40 cursor-pointer"
       >
-        <Accessibility className="w-6 h-6" />
+        <Accessibility className="w-5 h-5 md:w-6 md:h-6" />
       </button>
 
       {/* Accessibility Modal Panel */}
       {open && (
         <div
           ref={panelRef}
-          className="fixed bottom-20 right-6 z-[1000] w-80 bg-white border border-slate-200 rounded-3xl shadow-2xl p-5 animate-slide-up a11y-widget text-slate-900"
+          className="fixed bottom-32 right-3 md:bottom-20 md:right-6 z-[1000] w-[calc(100vw-24px)] max-w-sm sm:w-80 bg-white border border-slate-200 rounded-3xl shadow-2xl p-5 animate-slide-up a11y-widget text-slate-900"
           role="dialog"
           aria-label="Accessibility Settings Panel"
         >
