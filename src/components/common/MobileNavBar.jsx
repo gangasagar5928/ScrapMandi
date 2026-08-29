@@ -30,7 +30,7 @@ export const MobileNavBar = ({ activeTab, setActiveTab, onOpenCreateListing }) =
   ];
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-[900] bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 px-2 py-1 shadow-2xl safe-area-pb">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-[900] bg-slate-900 border-t border-slate-800 px-2 py-1 shadow-2xl safe-area-pb">
       <div className="flex items-center justify-around">
         {navItems.map((item) => {
           const Icon = item.icon;

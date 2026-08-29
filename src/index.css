@@ -12,6 +12,15 @@
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-tap-highlight-color: transparent;
     touch-action: pan-y;
+    overflow-x: hidden;
+  }
+}
+
+/* Eliminate backdrop-filter lag on mobile devices */
+@media (max-width: 768px) {
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 
@@ -88,18 +97,37 @@ html.high-contrast button {
   border-width: 2px !important;
 }
 
-/* Google Translate Widget Overrides */
+/* COMPLETE GOOGLE TRANSLATE BANNER SUPPRESSION (Hides iframe, top bar & prevents body top shift) */
+.goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
-.goog-te-banner-frame {
+iframe.goog-te-banner-frame,
+iframe.skiptranslate,
+.goog-te-banner,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
   display: none !important;
+  visibility: hidden !important;
+  height: 0px !important;
+  width: 0px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -99999 !important;
 }
+
 body {
   top: 0px !important;
+  position: static !important;
 }
-#goog-gt-tt {
-  display: none !important;
-}
+
 .goog-text-highlight {
   background-color: transparent !important;
   box-shadow: none !important;
+}
+
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+.VIpgJd-ZVi9od-l4eHX-hSRGPd {
+  display: none !important;
 }

@@ -36,7 +36,7 @@ export const Navbar = ({ activeTab, setActiveTab, onOpenAuth }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <header className="sticky top-0 z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
       {/* Top utility alert bar - Delhi NCR focused */}
       <div className="bg-slate-900 text-slate-200 text-xs px-4 py-1.5 font-medium flex justify-between items-center">
         <div className="flex items-center gap-2">

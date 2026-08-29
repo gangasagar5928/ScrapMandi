@@ -56,13 +56,12 @@ export const HeroSection = ({ setActiveTab, onOpenAuth }) => {
         style={{ backgroundImage: `url('${heroImg}')` }}
       />
 
-      {/* Cinematic dark gradients */}
+      {/* Cinematic dark gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/90 to-slate-950 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-emerald-500/15 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Live Mandi Ticker */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mb-6 sm:mb-8 relative z-10">
-        <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-700/60 rounded-2xl p-2.5 flex items-center gap-3 overflow-x-auto shadow-2xl">
+        <div className="bg-slate-900 border border-slate-700/60 rounded-2xl p-2.5 flex items-center gap-3 overflow-x-auto shadow-xl">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 text-xs font-bold shrink-0 border border-emerald-500/30">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             Delhi Spot Bhav
@@ -131,9 +130,7 @@ export const HeroSection = ({ setActiveTab, onOpenAuth }) => {
 
           {/* Right column — Spot Deals Card */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="bg-slate-900/90 backdrop-blur-xl p-5 sm:p-6 rounded-3xl border border-slate-700/70 shadow-2xl space-y-3.5 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
-
+            <div className="bg-slate-900 p-5 sm:p-6 rounded-3xl border border-slate-700/70 shadow-xl space-y-3.5 relative overflow-hidden">
               <div className="flex items-center justify-between border-b border-slate-800/80 pb-3.5">
                 <div className="flex items-center gap-3">
                   <img
@@ -154,7 +151,7 @@ export const HeroSection = ({ setActiveTab, onOpenAuth }) => {
 
               <div className="space-y-2.5">
                 {spotItems.map((item, idx) => (
-                  <div key={idx} className="p-3 rounded-2xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between hover:border-emerald-500/40 transition">
+                  <div key={idx} className="p-3 rounded-2xl bg-slate-950 border border-slate-800/80 flex items-center justify-between hover:border-emerald-500/40 transition">
                     <div className="flex items-center gap-2.5 min-w-0">
                       <img
                         src={item.img}
@@ -194,7 +191,7 @@ export const HeroSection = ({ setActiveTab, onOpenAuth }) => {
         {/* Stat Bar */}
         <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
           {stats.map((s, i) => (
-            <div key={i} className="bg-slate-900/60 p-3 sm:p-4 rounded-2xl border border-slate-800">
+            <div key={i} className="bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-800">
               <p className={`text-xl sm:text-3xl font-black ${s.color}`}>{s.value}</p>
               <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1">{s.label}</p>
             </div>
