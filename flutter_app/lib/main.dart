@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ScrapmandiApp());
 }
 
@@ -15,12 +16,14 @@ class ScrapmandiApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF059669),
-          primary: const Color(0xFF059669),
-          secondary: const Color(0xFF10B981),
-          surface: const Color(0xFFF8FAFC),
-          background: const Color(0xFF0F172A),
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF090D16),
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFF10B981),
+          secondary: Color(0xFF059669),
+          surface: Color(0xFF0F172A),
+          onPrimary: Colors.black,
+          onSurface: Colors.white,
         ),
         fontFamily: 'Roboto',
       ),
@@ -50,7 +53,13 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
+      backgroundColor: const Color(0xFF090D16),
+      body: SafeArea(
+        child: IndexedStack(
+          index: _currentIndex,
+          children: _screens,
+        ),
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
         onDestinationSelected: (index) {
@@ -139,12 +148,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_none, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -215,44 +218,19 @@ class HomeScreen extends StatelessWidget {
                     'Direct scrap trading across Mayapuri, Mundka, Bawana & Wazirpur yards. Zero dalal middleman commission.',
                     style: TextStyle(fontSize: 12, color: Colors.white70, height: 1.4),
                   ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Icons.search, size: 16),
-                        label: const Text('Find Scrap Lots'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF10B981),
-                          foregroundColor: const Color(0xFF090D16),
-                          textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
 
             // Mandi Streams Grid
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Delhi Scrap Streams',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('View All', style: TextStyle(color: Color(0xFF10B981), fontSize: 12)),
-                  ),
-                ],
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Delhi Scrap Streams',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
               ),
             ),
+            const SizedBox(height: 12),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -399,15 +377,13 @@ class _ListingCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(qty, style: const TextStyle(fontSize: 11, color: Colors.white70)),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF059669),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  minimumSize: const Size(60, 30),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF059669),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Text('Inspect', style: TextStyle(fontSize: 11, color: Colors.white)),
+                child: const Text('Inspect', style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.bold)),
               ),
             ],
           ),
@@ -480,6 +456,15 @@ class SpotBhavScreen extends StatelessWidget {
 class WhatsAppAlertsScreen extends StatelessWidget {
   const WhatsAppAlertsScreen({super.key});
 
+  Future<void> _openWhatsApp() async {
+    final uri = Uri.parse("https://wa.me/919999999999?text=Hello%20ScrapMandi,%20please%20subscribe%20me%20for%20Daily%20Delhi%20Mandi%20Bhav.");
+    try {
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      }
+    } catch (_) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -491,12 +476,24 @@ class WhatsAppAlertsScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.chat, color: Color(0xFF25D366), size: 64),
             const SizedBox(height: 16),
             const Text('Daily 09:00 AM Mandi Bhav on WhatsApp', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16), textAlign: TextAlign.center),
             const SizedBox(height: 8),
             const Text('Receive verified spot rates for Mayapuri, Mundka, Bawana & Wazirpur.', style: TextStyle(color: Colors.grey, fontSize: 12), textAlign: TextAlign.center),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: _openWhatsApp,
+              icon: const Icon(Icons.send, color: Colors.white),
+              label: const Text('Subscribe on WhatsApp', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF25D366),
+                minimumSize: const Size(double.infinity, 48),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
           ],
         ),
       ),
