@@ -1,0 +1,23 @@
+{
+  "name": "Scrapmandi",
+  "short_name": "Scrapmandi",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#022c22",
+  "theme_color": "#059669",
+  "description": "Scrapmandi - Delhi NCR Scrap Exchange. Sell, Buy, Recycle.",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

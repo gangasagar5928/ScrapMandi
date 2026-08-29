@@ -67,7 +67,7 @@ export const CategoryGrid = ({ onSelectCategory, setActiveTab }) => {
               <div
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
-                className={`group relative rounded-3xl overflow-hidden border border-slate-800 hover:border-emerald-500/60 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[300px] reveal reveal-delay-${(SCRAP_CATEGORIES.indexOf(cat) % 3) + 1}`}
+                className="group relative rounded-3xl overflow-hidden border border-slate-800 hover:border-emerald-500/60 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[280px]"
               >
                 {/* Guaranteed Local Card Vector Artwork */}
                 <img

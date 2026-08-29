@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "./components/common/Navbar";
 import { Footer } from "./components/common/Footer";
+import { MobileNavBar } from "./components/common/MobileNavBar";
 import { AccessibilityWidget } from "./components/common/AccessibilityWidget";
 import { LandingPage } from "./pages/LandingPage";
 import { BrowseListingsPage } from "./pages/BrowseListingsPage";
@@ -180,6 +181,19 @@ function MainApp() {
         listing={selectedListing}
         onSuccess={(order) => {
           navigateToTab("dealer-dashboard", "dealer-dashboard");
+        }}
+      />
+
+      {/* Global Mobile Bottom Navigation Bar (Sticky on phones) */}
+      <MobileNavBar
+        activeTab={activeTab}
+        setActiveTab={(tab) => navigateToTab(tab)}
+        onOpenCreateListing={() => {
+          if (!isAuthenticated) {
+            setAuthModalOpen(true);
+          } else {
+            setCreateListingModalOpen(true);
+          }
         }}
       />
 
