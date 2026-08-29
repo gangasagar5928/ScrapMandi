@@ -26,8 +26,21 @@ dist-ssr/
 .firebase/
 *-debug.log
 
+# Flutter & Android
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+android/.gradle/
+**/android/.gradle/
+**/android/**/build/
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+
 # IDE & OS
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
+commitmsg.txt
