@@ -25,9 +25,12 @@ export const ListingCard = ({ listing, onSelectListing }) => {
         {/* Card Image Banner */}
         <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
           <img
-            src={listing.photos?.[0] || "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=80"}
+            src={listing.photos?.[0] || `/images/scrap-${listing.category === 'non_ferrous' ? 'copper' : listing.category === 'rubber_glass' ? 'tyres' : listing.category || 'loha'}.svg`}
             alt={listing.subCategoryName || listing.subCategory}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={(e) => {
+              e.target.src = "/images/scrap-loha.svg";
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
           

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgCopper" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1006" />
+      <stop offset="50%" stop-color="#2a1508" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="40%" stop-color="#d97706" />
+      <stop offset="80%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#78350f" />
+    </linearGradient>
+    <linearGradient id="brassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#eab308" />
+      <stop offset="100%" stop-color="#a16207" />
+    </linearGradient>
+    <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="50%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgCopper)" />
+
+  <!-- Amber/Gold Glow -->
+  <circle cx="350" cy="300" r="260" fill="#f59e0b" fill-opacity="0.12" filter="blur(60px)" />
+  <circle cx="600" cy="380" r="200" fill="#ea580c" fill-opacity="0.1" filter="blur(50px)" />
+
+  <!-- Copper Wire Coils & Armature Cables -->
+  <g transform="translate(160, 180)">
+    <!-- Coil 1 -->
+    <path d="M 50 120 C 50 20, 250 20, 250 120 C 250 220, 50 220, 50 120" stroke="url(#copperGrad)" stroke-width="24" fill="none" stroke-linecap="round" />
+    <!-- Coil 2 (nested) -->
+    <path d="M 80 120 C 80 50, 220 50, 220 120 C 220 190, 80 190, 80 120" stroke="url(#copperGrad)" stroke-width="18" fill="none" stroke-linecap="round" />
+    <!-- Coil 3 -->
+    <path d="M 110 120 C 110 80, 190 80, 190 120 C 190 160, 110 160, 110 120" stroke="#fed7aa" stroke-width="12" fill="none" stroke-linecap="round" />
+    
+    <!-- Bright Copper Wires branching out -->
+    <path d="M 240 100 Q 380 40 480 120 T 580 200" stroke="url(#copperGrad)" stroke-width="14" fill="none" stroke-linecap="round" />
+    <path d="M 230 140 Q 360 180 440 160 T 540 260" stroke="#f97316" stroke-width="10" fill="none" stroke-linecap="round" />
+    <path d="M 200 170 Q 320 280 460 270 T 520 340" stroke="#fdba74" stroke-width="8" fill="none" stroke-linecap="round" />
+  </g>
+
+  <!-- Brass Valves & Honey Scrap Ingots -->
+  <g transform="translate(480, 280)">
+    <!-- Brass Valve hexagon -->
+    <polygon points="120,40 180,75 180,145 120,180 60,145 60,75" fill="url(#brassGrad)" stroke="#713f12" stroke-width="4" />
+    <circle cx="120" cy="110" r="35" fill="#ca8a04" stroke="#422006" stroke-width="3" />
+    <circle cx="120" cy="110" r="16" fill="#1c1917" />
+
+    <!-- Brass Purza fitting pipe -->
+    <rect x="-40" y="85" width="100" height="50" rx="6" fill="url(#brassGrad)" stroke="#713f12" stroke-width="3" />
+    <rect x="-55" y="75" width="20" height="70" rx="4" fill="#facc15" stroke="#713f12" stroke-width="2" />
+  </g>
+
+  <!-- Aluminium Extrusion 6063 Profiles (Silver) -->
+  <g transform="translate(100, 360) rotate(-15)">
+    <rect x="0" y="0" width="280" height="40" rx="4" fill="url(#silverGrad)" stroke="#334155" stroke-width="3" />
+    <rect x="20" y="10" width="60" height="20" rx="2" fill="#0f172a" />
+    <rect x="100" y="10" width="60" height="20" rx="2" fill="#0f172a" />
+    <rect x="180" y="10" width="60" height="20" rx="2" fill="#0f172a" />
+  </g>
+
+  <!-- Shimmering Sparkles -->
+  <polygon points="340,160 344,175 359,179 344,183 340,198 336,183 321,179 336,175" fill="#fef08a" />
+  <polygon points="620,240 623,250 633,253 623,256 620,266 617,256 607,253 617,250" fill="#ffffff" />
+  <polygon points="260,320 263,330 273,333 263,336 260,346 257,336 247,333 257,330" fill="#fde047" />
+
+  <!-- Badge Overlay -->
+  <rect x="500" y="490" width="250" height="64" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#78350f" stroke-width="2" />
+  <text x="520" y="520" font-family="system-ui, sans-serif" font-size="16" font-weight="900" fill="#ffffff">Tamba, Peetal &amp; Aluminium</text>
+  <text x="520" y="542" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#f59e0b">Naraina &amp; Wazirpur Mandi</text>
+</svg>

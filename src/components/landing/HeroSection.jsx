@@ -53,23 +53,22 @@ export const HeroSection = ({ setActiveTab, onOpenAuth }) => {
     { value: "100%",        label: "Dharam Kanta Slip Backed",   color: "text-emerald-300" },
   ];
 
-  // High-res WORKING image from Pexels (doesn't block cross-origin)
-  // Using picsum.photos as reliable fallback with industrial seed
-  const heroImg = "https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=2560&h=1440&fit=crop";
+  // Guaranteed local SVG assets — 100% offline-ready, crisp vector rendering
+  const heroImg = "/images/scrap-hero-yard.svg";
 
   const spotItems = [
     {
-      img: "https://images.pexels.com/photos/6069112/pexels-photo-6069112.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop",
+      img: "/images/scrap-loha.svg",
       name: "HMS 1 Heavy Structure", badge: "80:20", badgeCls: "bg-slate-800 text-slate-300",
       seller: "Sharma Loha • Mayapuri Phase 2", price: "₹38,800", unit: "/ t", qty: "35 t ready", priceCls: "text-emerald-400"
     },
     {
-      img: "https://images.pexels.com/photos/162634/metal-pipe-copper-gold-162634.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop",
+      img: "/images/scrap-copper.svg",
       name: "Copper Armature (99%)", badge: "Berry", badgeCls: "bg-amber-500/20 text-amber-300 border border-amber-500/30",
       seller: "Salim Tamba • Naraina Phase 1", price: "₹775", unit: "/ kg", qty: "2,800 kg", priceCls: "text-amber-400"
     },
     {
-      img: "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop",
+      img: "/images/scrap-paper.svg",
       name: "OCC Gatta (Mill Baled)", badge: "Grade A", badgeCls: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
       seller: "Aggarwal Recyclers • Bawana", price: "₹16.00", unit: "/ kg", qty: "24 t ready", priceCls: "text-emerald-400"
     },
@@ -80,7 +79,7 @@ export const HeroSection = ({ setActiveTab, onOpenAuth }) => {
       
       {/* ── Hero BG: Slow Zoom ── */}
       <div 
-        className="absolute inset-0 bg-cover bg-center hero-bg-zoom opacity-30 pointer-events-none"
+        className="absolute inset-0 bg-cover bg-center hero-bg-zoom opacity-40 pointer-events-none"
         style={{ backgroundImage: `url('${heroImg}')` }}
       />
 
@@ -193,7 +192,7 @@ export const HeroSection = ({ setActiveTab, onOpenAuth }) => {
                         className="w-11 h-11 rounded-xl object-cover border border-slate-700 shrink-0"
                         loading="lazy"
                         onError={(e) => {
-                          e.target.src = `https://via.placeholder.com/80x80/1e293b/34d399?text=${encodeURIComponent(item.name.slice(0,2))}`;
+                          e.target.src = "/images/scrap-loha.svg";
                         }}
                       />
                       <div className="space-y-0.5">

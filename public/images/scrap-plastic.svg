@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgPlastic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#022c22" />
+      <stop offset="50%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="barrelBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="50%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="petFlakes" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a7f3d0" />
+      <stop offset="50%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgPlastic)" />
+
+  <circle cx="300" cy="300" r="240" fill="#059669" fill-opacity="0.15" filter="blur(60px)" />
+  <circle cx="550" cy="250" r="200" fill="#0ea5e9" fill-opacity="0.12" filter="blur(50px)" />
+
+  <!-- HDPE Blue Industrial Drum / Barrel -->
+  <g transform="translate(180, 200)">
+    <!-- Barrel body -->
+    <rect x="0" y="40" width="140" height="200" rx="20" fill="url(#barrelBlue)" stroke="#0c4a6e" stroke-width="4" />
+    <!-- Barrel Ribs -->
+    <line x1="0" y1="90" x2="140" y2="90" stroke="#bae6fd" stroke-width="6" />
+    <line x1="0" y1="150" x2="140" y2="150" stroke="#bae6fd" stroke-width="6" />
+    <line x1="0" y1="200" x2="140" y2="200" stroke="#bae6fd" stroke-width="6" />
+    <!-- Barrel Top Lid & Bung Caps -->
+    <ellipse cx="70" cy="40" rx="70" ry="20" fill="#0284c7" stroke="#0c4a6e" stroke-width="4" />
+    <circle cx="45" cy="40" r="10" fill="#e0f2fe" stroke="#0369a1" stroke-width="2" />
+    <circle cx="95" cy="40" r="8" fill="#e0f2fe" stroke="#0369a1" stroke-width="2" />
+  </g>
+
+  <!-- PET Washed Flakes & Polymer Dana Pellets Pile -->
+  <g transform="translate(380, 220)">
+    <!-- Flakes cluster (polygons) -->
+    <polygon points="40,60 70,40 85,80 50,90" fill="#6ee7b7" opacity="0.9" />
+    <polygon points="80,50 120,30 140,70 100,85" fill="#a7f3d0" opacity="0.8" />
+    <polygon points="120,80 160,60 175,100 135,115" fill="#34d399" opacity="0.9" />
+    <polygon points="60,90 100,80 110,120 70,130" fill="#a7f3d0" opacity="0.95" />
+    <polygon points="100,110 145,95 155,140 115,150" fill="#6ee7b7" opacity="0.85" />
+    <polygon points="140,125 180,110 195,150 150,165" fill="#34d399" opacity="0.9" />
+
+    <!-- Polymer Dana Pellets (Circles) -->
+    <circle cx="110" cy="180" r="12" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2" />
+    <circle cx="135" cy="175" r="14" fill="#bae6fd" stroke="#0284c7" stroke-width="2" />
+    <circle cx="165" cy="185" r="13" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2" />
+    <circle cx="195" cy="180" r="12" fill="#bae6fd" stroke="#0284c7" stroke-width="2" />
+    <circle cx="125" cy="205" r="13" fill="#bae6fd" stroke="#0284c7" stroke-width="2" />
+    <circle cx="155" cy="210" r="14" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2" />
+    <circle cx="185" cy="205" r="13" fill="#bae6fd" stroke="#0284c7" stroke-width="2" />
+  </g>
+
+  <!-- Big Polyethylene / LDPE Roll -->
+  <g transform="translate(100, 380) rotate(-10)">
+    <rect x="0" y="0" width="240" height="70" rx="16" fill="#047857" stroke="#065f46" stroke-width="3" />
+    <ellipse cx="240" cy="35" rx="20" ry="35" fill="#10b981" stroke="#065f46" stroke-width="3" />
+    <circle cx="240" cy="35" r="10" fill="#064e3b" />
+  </g>
+
+  <!-- Badge Overlay -->
+  <rect x="490" y="490" width="260" height="64" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#059669" stroke-width="2" />
+  <text x="510" y="520" font-family="system-ui, sans-serif" font-size="16" font-weight="900" fill="#ffffff">Industrial Plastic &amp; PET Dana</text>
+  <text x="510" y="542" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#34d399">Mundka &amp; Narela Clusters</text>
+</svg>

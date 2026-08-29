@@ -23,8 +23,7 @@ export const INITIAL_SEED_LISTINGS = [
     approxLocation: "Mayapuri Phase 2, New Delhi",
     privateAddress: "Plot C-42/1, Mayapuri Industrial Area Phase 2, Near Dharam Kanta, New Delhi - 110064",
     photos: [
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?w=800&auto=format&fit=crop&q=80"
+      "/images/scrap-loha.svg"
     ],
     description: "Heavy demolition girder and structure scrap. Thickness > 8mm. No closed pipes, no mud/slag. Direct yard loading with crane facility in Mayapuri.",
     minOrderQuantity: 5,
@@ -54,7 +53,7 @@ export const INITIAL_SEED_LISTINGS = [
     approxLocation: "Naraina Phase 1, South West Delhi",
     privateAddress: "B-18/4, Naraina Industrial Area Phase 1, New Delhi - 110028",
     photos: [
-      "https://images.unsplash.com/photo-1618764400608-9e7115eabb7c?w=800&auto=format&fit=crop&q=80"
+      "/images/scrap-copper.svg"
     ],
     description: "High tension electrical cable copper wire. 99% pure, completely rubber stripped. Zero oxidation. Ready for immediate cash/RTGS lot lifting.",
     minOrderQuantity: 100,
@@ -84,7 +83,7 @@ export const INITIAL_SEED_LISTINGS = [
     approxLocation: "Wazirpur Steel Cluster, Delhi",
     privateAddress: "Shed 28, Wazirpur Industrial Area, Near Ring Road, Delhi - 110052",
     photos: [
-      "https://images.unsplash.com/photo-1535813547-99c456a41d4a?w=800&auto=format&fit=crop&q=80"
+      "/images/scrap-copper.svg"
     ],
     description: "Clean sanitary fittings and valve purza scrap. Free from iron screws or zinc attachments. Sorted by magnetic testing.",
     minOrderQuantity: 200,
@@ -114,7 +113,7 @@ export const INITIAL_SEED_LISTINGS = [
     approxLocation: "Sector 3 Bawana, North Delhi",
     privateAddress: "Plot 144, Sector 3, Bawana Industrial Area, Delhi - 110039",
     photos: [
-      "https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=800&auto=format&fit=crop&q=80"
+      "/images/scrap-paper.svg"
     ],
     description: "Machine-compressed hydraulic bales of brown kraft OCC gatta. Tested moisture < 10%. Direct supply for paper mills in Sonipat/Kundli.",
     minOrderQuantity: 5,
@@ -144,7 +143,7 @@ export const INITIAL_SEED_LISTINGS = [
     approxLocation: "DSIDC Narela, Delhi",
     privateAddress: "Shed 52, DSIDC Complex, Narela, Delhi - 110040",
     photos: [
-      "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&auto=format&fit=crop&q=80"
+      "/images/scrap-plastic.svg"
     ],
     description: "Cold & hot washed clean transparent PET bottle flakes. Zero label glue, PVC contamination < 30 ppm. Ideal for polyester yarn spinning.",
     minOrderQuantity: 500,
@@ -174,7 +173,7 @@ export const INITIAL_SEED_LISTINGS = [
     approxLocation: "Mundka Industrial Area, West Delhi",
     privateAddress: "Main Rohtak Road, Opposite Metro Pillar 512, Mundka, Delhi - 110041",
     photos: [
-      "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?w=800&auto=format&fit=crop&q=80"
+      "/images/scrap-loha.svg"
     ],
     description: "TMT rebar cut ends (saria tukda) 12mm-32mm. High density melting grade. 100% rust free dry batch. Dharam Kanta slip on spot.",
     minOrderQuantity: 10,
@@ -204,7 +203,7 @@ export const INITIAL_SEED_LISTINGS = [
     approxLocation: "Sector 24, Faridabad",
     privateAddress: "Plot 89, Sector 24 Industrial Area, Faridabad, Haryana - 121005",
     photos: [
-      "https://images.unsplash.com/photo-1535813547-99c456a41d4a?w=800&auto=format&fit=crop&q=80"
+      "/images/scrap-copper.svg"
     ],
     description: "Architectural aluminium window frame cutting & extrusion 6063. Clean white metal with iron stripped.",
     minOrderQuantity: 300,

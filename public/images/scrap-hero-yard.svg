@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051019" />
+      <stop offset="30%" stop-color="#0a1926" />
+      <stop offset="70%" stop-color="#0f262e" />
+      <stop offset="100%" stop-color="#021f18" />
+    </linearGradient>
+    <linearGradient id="craneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="emeraldBeam" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.25" />
+      <stop offset="50%" stop-color="#34d399" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#059669" stop-opacity="0" />
+    </linearGradient>
+    <pattern id="yardGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#1e293b" stroke-width="1" stroke-opacity="0.4" />
+    </pattern>
+  </defs>
+
+  <!-- Sky / Deep Dark Backdrop -->
+  <rect width="1920" height="1080" fill="url(#heroBg)" />
+  <rect width="1920" height="1080" fill="url(#yardGrid)" />
+
+  <!-- Atmospheric Glows -->
+  <circle cx="960" cy="400" r="550" fill="#10b981" fill-opacity="0.08" filter="blur(100px)" />
+  <circle cx="1600" cy="300" r="450" fill="#0284c7" fill-opacity="0.06" filter="blur(90px)" />
+  <circle cx="300" cy="600" r="400" fill="#f59e0b" fill-opacity="0.05" filter="blur(90px)" />
+
+  <!-- Industrial Mandi Yard Silhouette Backdrop -->
+  <!-- Sheds -->
+  <polygon points="100,750 350,600 600,750" fill="#0f172a" opacity="0.6" />
+  <polygon points="550,750 800,580 1050,750" fill="#1e293b" opacity="0.5" />
+  <polygon points="1200,750 1500,560 1800,750" fill="#0f172a" opacity="0.7" />
+
+  <!-- Gantry Cranes (Mayapuri Heavy Scrap Lifting) -->
+  <!-- Crane 1 (Left) -->
+  <g opacity="0.6" stroke="#334155" stroke-width="6">
+    <line x1="200" y1="850" x2="350" y2="280" />
+    <line x1="500" y1="850" x2="350" y2="280" />
+    <line x1="200" y1="280" x2="900" y2="280" stroke="#475569" stroke-width="12" />
+    <!-- Truss cross bracing -->
+    <line x1="250" y1="650" x2="450" y2="450" stroke-width="3" />
+    <line x1="250" y1="450" x2="450" y2="650" stroke-width="3" />
+    <!-- Hoist Cable & Magnet -->
+    <line x1="600" y1="280" x2="600" y2="460" stroke="#94a3b8" stroke-width="4" />
+    <rect x="540" y="460" width="120" height="36" rx="10" fill="#10b981" />
+  </g>
+
+  <!-- Crane 2 (Right) -->
+  <g opacity="0.45" stroke="#334155" stroke-width="6">
+    <line x1="1300" y1="850" x2="1450" y2="220" />
+    <line x1="1600" y1="850" x2="1450" y2="220" />
+    <line x1="1100" y1="220" x2="1850" y2="220" stroke="#475569" stroke-width="12" />
+    <!-- Hoist -->
+    <line x1="1350" y1="220" x2="1350" y2="420" stroke="#94a3b8" stroke-width="4" />
+    <polygon points="1350,420 1310,470 1390,470" fill="#f59e0b" />
+  </g>
+
+  <!-- Scrap Mountain Piles Silhouette (Loha, Saria, Bundles) -->
+  <path d="M 0 920 Q 250 780 450 860 T 900 820 T 1400 850 T 1920 800 L 1920 1080 L 0 1080 Z" fill="#090d16" opacity="0.9" />
+  <path d="M 0 960 Q 300 860 600 900 T 1200 880 T 1800 910 L 1920 1080 L 0 1080 Z" fill="#030712" />
+
+  <!-- Electronic Dharam Kanta Weighbridge Platform Floor -->
+  <rect x="700" y="930" width="520" height="40" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="4" opacity="0.8" />
+  <line x1="720" y1="950" x2="1200" y2="950" stroke="#34d399" stroke-width="2" stroke-dasharray="10 8" />
+
+  <!-- Digital Scale HUD Readout in Ground -->
+  <rect x="880" y="870" width="160" height="48" rx="8" fill="#022c22" stroke="#10b981" stroke-width="2" />
+  <text x="960" y="902" font-family="monospace" font-size="18" font-weight="900" fill="#34d399" text-anchor="middle">52,480 KG</text>
+
+  <!-- Glowing Laser Guide lines -->
+  <line x1="0" y1="940" x2="1920" y2="940" stroke="url(#emeraldBeam)" stroke-width="3" />
+</svg>

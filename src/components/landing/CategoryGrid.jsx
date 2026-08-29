@@ -14,14 +14,14 @@ import {
 } from "lucide-react";
 import { SCRAP_CATEGORIES, MAJOR_MANDIS } from "../../data/categories";
 
-// Pexels images — reliably load without CORS issues
+// Guaranteed local SVG assets — never fail, never 403, 100% offline-ready
 const categoryPhotos = {
-  ferrous:      "https://images.pexels.com/photos/6069112/pexels-photo-6069112.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-  non_ferrous:  "https://images.pexels.com/photos/162634/metal-pipe-copper-gold-162634.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-  paper:        "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-  plastic:      "https://images.pexels.com/photos/1550835/pexels-photo-1550835.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-  ewaste:       "https://images.pexels.com/photos/1104767/pexels-photo-1104767.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-  rubber_glass: "https://images.pexels.com/photos/3735218/pexels-photo-3735218.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+  ferrous:      "/images/scrap-loha.svg",
+  non_ferrous:  "/images/scrap-copper.svg",
+  paper:        "/images/scrap-paper.svg",
+  plastic:      "/images/scrap-plastic.svg",
+  ewaste:       "/images/scrap-ewaste.svg",
+  rubber_glass: "/images/scrap-tyres.svg"
 };
 
 const iconMap = {
@@ -57,7 +57,7 @@ export const CategoryGrid = ({ onSelectCategory, setActiveTab }) => {
           </p>
         </div>
 
-        {/* 4K Visual Category 6-Grid with Image Cards & Dark Gradient Overlays */}
+        {/* Visual Category 6-Grid with Local Vector Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {SCRAP_CATEGORIES.map((cat) => {
             const IconComponent = iconMap[cat.icon] || Hammer;
@@ -69,14 +69,16 @@ export const CategoryGrid = ({ onSelectCategory, setActiveTab }) => {
                 onClick={() => onSelectCategory(cat.id)}
                 className={`group relative rounded-3xl overflow-hidden border border-slate-800 hover:border-emerald-500/60 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[300px] reveal reveal-delay-${(SCRAP_CATEGORIES.indexOf(cat) % 3) + 1}`}
               >
-                {/* Background Image with Hover Zoom */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110 bg-slate-800"
-                  style={{ backgroundImage: `url('${photo}')` }}
+                {/* Guaranteed Local Card Vector Artwork */}
+                <img
+                  src={photo}
+                  alt={cat.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  loading="lazy"
                 />
 
                 {/* Dark Vignette Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/40 group-hover:via-slate-950/70 transition-colors" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/20 group-hover:via-slate-950/60 transition-colors" />
 
                 {/* Top Badge Area */}
                 <div className="relative z-10 p-6 flex items-center justify-between">

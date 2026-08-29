@@ -112,25 +112,71 @@
 }
 
 /* ============================================
-   ACCESSIBILITY WIDGET
+   ACCESSIBILITY & THEMING (Dark & Contrast Modes)
    ============================================ */
 .a11y-widget {
   font-family: inherit;
 }
 
-.a11y-btn-active {
-  background: #059669 !important;
-  color: #fff !important;
-  border-color: #059669 !important;
+/* Dark Mode Overrides */
+html.dark {
+  color-scheme: dark;
+}
+html.dark body {
+  background-color: #030712 !important;
+  color: #f3f4f6 !important;
+}
+html.dark .bg-white {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+html.dark .bg-slate-50 {
+  background-color: #0b1320 !important;
+}
+html.dark .bg-slate-100 {
+  background-color: #1e293b !important;
+}
+html.dark .border-slate-200, 
+html.dark .border-slate-100,
+html.dark .border-slate-300 {
+  border-color: #334155 !important;
+}
+html.dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+html.dark .text-slate-700, 
+html.dark .text-slate-600 {
+  color: #cbd5e1 !important;
+}
+html.dark .text-slate-500,
+html.dark .text-slate-400 {
+  color: #94a3b8 !important;
 }
 
-/* High contrast mode */
-body.high-contrast {
-  filter: contrast(1.6) saturate(0);
+/* High Contrast Mode */
+html.high-contrast {
+  filter: contrast(1.4) brightness(1.05);
+}
+html.high-contrast body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+html.high-contrast button {
+  border-width: 2px !important;
 }
 
-/* Text size classes applied to root */
-body.text-sm-mode  { font-size: 14px; }
-body.text-base-mode { font-size: 16px; }
-body.text-lg-mode  { font-size: 19px; }
-body.text-xl-mode  { font-size: 22px; }
+/* Hide Google Translate top banner if loaded */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+}
+#goog-gt-tt {
+  display: none !important;
+}
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}

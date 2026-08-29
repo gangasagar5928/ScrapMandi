@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="steel1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="50%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    <linearGradient id="steel2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="50%" stop-color="#64748b" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="emerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="1" stroke-opacity="0.3" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bg)" />
+  <rect width="800" height="600" fill="url(#grid)" />
+
+  <!-- Ambient Glow -->
+  <circle cx="400" cy="300" r="280" fill="#10b981" fill-opacity="0.1" filter="blur(60px)" />
+  <circle cx="650" cy="150" r="180" fill="#38bdf8" fill-opacity="0.08" filter="blur(50px)" />
+
+  <!-- Industrial Yard Gantry / Crane silhouette -->
+  <path d="M 50 500 L 150 120 L 650 120 L 750 500" stroke="#334155" stroke-width="8" fill="none" opacity="0.4" />
+  <line x1="150" y1="120" x2="650" y2="120" stroke="#475569" stroke-width="14" opacity="0.6" />
+  <line x1="380" y1="120" x2="380" y2="240" stroke="#94a3b8" stroke-width="4" opacity="0.7" />
+  <!-- Magnet -->
+  <rect x="330" y="240" width="100" height="30" rx="8" fill="url(#emerald)" opacity="0.9" />
+
+  <!-- Heavy Steel Beams / I-Beams (HMS 1 & 2) -->
+  <!-- Beam 1: Diagonal left -->
+  <g transform="rotate(-25 280 380)">
+    <rect x="100" y="340" width="360" height="48" rx="4" fill="url(#steel1)" />
+    <rect x="95" y="332" width="370" height="12" rx="2" fill="#64748b" />
+    <rect x="95" y="384" width="370" height="12" rx="2" fill="#334155" />
+    <line x1="120" y1="364" x2="450" y2="364" stroke="#1e293b" stroke-width="3" stroke-dasharray="8 6" />
+  </g>
+
+  <!-- Beam 2: Diagonal right -->
+  <g transform="rotate(35 480 420)">
+    <rect x="300" y="380" width="380" height="56" rx="4" fill="url(#steel2)" />
+    <rect x="295" y="372" width="390" height="14" rx="2" fill="#94a3b8" />
+    <rect x="295" y="430" width="390" height="14" rx="2" fill="#1e293b" />
+  </g>
+
+  <!-- Rebar / Saria Bundle -->
+  <g transform="translate(180, 420)">
+    <circle cx="40" cy="50" r="14" fill="#64748b" stroke="#334155" stroke-width="3" />
+    <circle cx="70" cy="50" r="14" fill="#94a3b8" stroke="#334155" stroke-width="3" />
+    <circle cx="100" cy="50" r="14" fill="#64748b" stroke="#334155" stroke-width="3" />
+    <circle cx="55" cy="26" r="14" fill="#cbd5e1" stroke="#334155" stroke-width="3" />
+    <circle cx="85" cy="26" r="14" fill="#94a3b8" stroke="#334155" stroke-width="3" />
+    <circle cx="70" cy="2" r="14" fill="#e2e8f0" stroke="#334155" stroke-width="3" />
+    <!-- Steel Strapping -->
+    <rect x="20" y="-12" width="100" height="80" rx="24" fill="none" stroke="#10b981" stroke-width="4" />
+  </g>
+
+  <!-- Sparks & Industrial Laser / Torch Glow -->
+  <circle cx="390" cy="360" r="4" fill="#fef08a" />
+  <circle cx="410" cy="340" r="3" fill="#fde047" />
+  <circle cx="430" cy="370" r="5" fill="#ca8a04" />
+  <circle cx="370" cy="390" r="3" fill="#facc15" />
+
+  <!-- Badge Overlay -->
+  <rect x="520" y="490" width="230" height="64" rx="16" fill="#0f172a" fill-opacity="0.85" stroke="#334155" stroke-width="2" />
+  <text x="540" y="520" font-family="system-ui, sans-serif" font-size="16" font-weight="900" fill="#ffffff">HMS 1 &amp; Saria Scrap</text>
+  <text x="540" y="542" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#10b981">Mayapuri &amp; Mundka Yards</text>
+</svg>
