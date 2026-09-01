@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { X, Accessibility, Check, Globe } from "lucide-react";
+import { X, Accessibility, Check } from "lucide-react";
+import { IOSSegmentedControl } from "../ios/IOSSegmentedControl";
 
 const FONT_SIZES = [
-  { label: "A-",     size: "13px", key: "sm" },
-  { label: "A",      size: "16px", key: "base", default: true },
-  { label: "A+",     size: "19px", key: "lg" },
-  { label: "Senior", size: "23px", key: "xl" },
+  { label: "A-",     size: "13px", value: "sm" },
+  { label: "A",      size: "16px", value: "base" },
+  { label: "A+",     size: "19px", value: "lg" },
+  { label: "Senior", size: "23px", value: "xl" },
 ];
 
 const LANGUAGES = [
@@ -21,7 +22,7 @@ const LANGUAGES = [
 const THEMES = [
   { label: "Light",        value: "light" },
   { label: "Dark",         value: "dark" },
-  { label: "High Contrast",value: "contrast" },
+  { label: "Contrast",    value: "contrast" },
 ];
 
 export const AccessibilityWidget = () => {
@@ -32,9 +33,10 @@ export const AccessibilityWidget = () => {
   const panelRef = useRef(null);
 
   // 1. Dynamic Root Font Size Scaling (Scales all Tailwind rem units across entire app)
-  const handleFontSizeChange = (key, size) => {
+  const handleFontSizeChange = (key) => {
+    const found = FONT_SIZES.find(f => f.value === key) || FONT_SIZES[1];
     setFontSize(key);
-    document.documentElement.style.fontSize = size;
+    document.documentElement.style.fontSize = found.size;
     localStorage.setItem("scrapmandi_a11y_font", key);
   };
 
@@ -69,7 +71,6 @@ export const AccessibilityWidget = () => {
         select.dispatchEvent(new Event("change"));
       }
     } else if (selectedLang !== "en") {
-      // Load Google Translate script dynamically if not yet loaded
       if (!document.getElementById("google-translate-script")) {
         window.googleTranslateElementInit = () => {
           new window.google.translate.TranslateElement(
@@ -88,7 +89,7 @@ export const AccessibilityWidget = () => {
   // Restore saved preferences on mount
   useEffect(() => {
     const savedFont = localStorage.getItem("scrapmandi_a11y_font") || "base";
-    const foundFont = FONT_SIZES.find(f => f.key === savedFont) || FONT_SIZES[1];
+    const foundFont = FONT_SIZES.find(f => f.value === savedFont) || FONT_SIZES[1];
     setFontSize(savedFont);
     document.documentElement.style.fontSize = foundFont.size;
 
@@ -115,80 +116,73 @@ export const AccessibilityWidget = () => {
       {/* Hidden container for Google Translate */}
       <div id="google_translate_element" className="hidden" />
 
-      {/* Floating Accessibility Trigger Button - elevated above mobile nav bar */}
+      {/* Floating iOS Accessibility Trigger Button */}
       <button
         onClick={() => setOpen(o => !o)}
         aria-label="Accessibility Settings"
         title="Accessibility (सुगम्यता)"
-        className="fixed bottom-20 right-3.5 md:bottom-6 md:right-6 z-[890] w-11 h-11 md:w-12 md:h-12 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-600/30 flex items-center justify-center transition-all hover:scale-105 active:scale-95 border-2 border-emerald-400/40 cursor-pointer"
+        className="fixed bottom-20 right-3.5 md:bottom-6 md:right-6 z-[890] w-11 h-11 md:w-12 md:h-12 rounded-full bg-ios-blue text-white shadow-ios-card dark:shadow-ios-card-dark flex items-center justify-center transition-all hover:scale-105 active:scale-95 border border-white/20 cursor-pointer select-none"
       >
         <Accessibility className="w-5 h-5 md:w-6 md:h-6" />
       </button>
 
-      {/* Accessibility Modal Panel */}
+      {/* iOS Accessibility Modal Sheet */}
       {open && (
         <div
           ref={panelRef}
-          className="fixed bottom-32 right-3 md:bottom-20 md:right-6 z-[1000] w-[calc(100vw-24px)] max-w-sm sm:w-80 bg-white border border-slate-200 rounded-3xl shadow-2xl p-5 animate-slide-up a11y-widget text-slate-900"
+          className="fixed bottom-32 right-3 md:bottom-20 md:right-6 z-[1000] w-[calc(100vw-24px)] max-w-sm sm:w-80 bg-ios-bg2 text-ios-label border border-ios-separator/20 rounded-[24px] shadow-ios-modal p-5 animate-slide-up select-none"
           role="dialog"
           aria-label="Accessibility Settings Panel"
         >
           {/* Header */}
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-ios-separator/15">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-black text-slate-900 uppercase tracking-wider">ACCESSIBILITY</span>
-              <span className="text-base">🎖️</span>
+              <span className="text-xs font-bold text-ios-label uppercase tracking-wider">Accessibility</span>
+              <span className="text-sm">⚙️</span>
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="text-slate-400 hover:text-slate-600 p-1 rounded-lg transition"
+              className="text-ios-label3 hover:text-ios-label p-1 rounded-full active:bg-ios-bg3 transition cursor-pointer"
               aria-label="Close"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          {/* 1. Text Size */}
-          <div className="mb-4">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">
+          {/* 1. Text Size Segmented Control */}
+          <div className="mb-4 space-y-1.5">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-ios-label2">
               TEXT SIZE / आकार
             </p>
-            <div className="grid grid-cols-4 gap-1.5">
-              {FONT_SIZES.map((f) => (
-                <button
-                  key={f.key}
-                  onClick={() => handleFontSizeChange(f.key, f.size)}
-                  className={`py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center ${
-                    fontSize === f.key
-                      ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/30"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                  }`}
-                >
-                  {f.label}
-                </button>
-              ))}
-            </div>
+            <IOSSegmentedControl
+              options={FONT_SIZES}
+              value={fontSize}
+              onChange={handleFontSizeChange}
+            />
           </div>
 
-          {/* 2. Language */}
-          <div className="mb-4">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 flex items-center justify-between">
-              <span>LANGUAGE / भाषा</span>
+          {/* 2. Language Pills */}
+          <div className="mb-4 space-y-1.5">
+            <div className="flex items-center justify-between">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-ios-label2">
+                LANGUAGE / भाषा
+              </p>
               {lang !== "en" && (
-                <span className="text-emerald-700 font-bold text-[9px] bg-emerald-50 px-1.5 py-0.5 rounded">
+                <span className="text-ios-green font-bold text-[9px] bg-ios-green/10 px-1.5 py-0.2 rounded-full">
                   ✓ Active
                 </span>
               )}
-            </p>
+            </div>
             <div className="flex flex-wrap gap-1.5">
               {LANGUAGES.map((l) => (
                 <button
                   key={l.code}
+                  type="button"
                   onClick={() => handleLanguageChange(l.code)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition ${
+                  className={`px-3 py-1.5 rounded-[10px] text-xs font-semibold transition active:scale-95 cursor-pointer ${
                     lang === l.code
-                      ? "bg-emerald-600 text-white shadow-sm"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                      ? "bg-ios-blue text-white shadow-xs"
+                      : "bg-ios-bg3 text-ios-label2 hover:text-ios-label"
                   }`}
                 >
                   {l.label}
@@ -197,28 +191,17 @@ export const AccessibilityWidget = () => {
             </div>
           </div>
 
-          {/* 3. Contrast Theme */}
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">
-              CONTRAST THEME / थीम
+          {/* 3. Theme Segmented Control */}
+          <div className="space-y-1.5">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-ios-label2">
+              THEME / थीम
             </p>
-            <div className="grid grid-cols-3 gap-1.5">
-              {THEMES.map((t) => (
-                <button
-                  key={t.value}
-                  onClick={() => handleThemeChange(t.value)}
-                  className={`py-2 rounded-xl text-xs font-bold transition ${
-                    theme === t.value
-                      ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/30"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                  }`}
-                >
-                  {t.label}
-                </button>
-              ))}
-            </div>
+            <IOSSegmentedControl
+              options={THEMES}
+              value={theme}
+              onChange={handleThemeChange}
+            />
           </div>
-
         </div>
       )}
     </>

@@ -8,13 +8,37 @@ export default {
   theme: {
     extend: {
       colors: {
+        ios: {
+          bg: 'rgb(var(--ios-bg) / <alpha-value>)',
+          bg2: 'rgb(var(--ios-bg2) / <alpha-value>)',
+          bg3: 'rgb(var(--ios-bg3) / <alpha-value>)',
+          label: 'rgb(var(--ios-label) / <alpha-value>)',
+          label2: 'rgb(var(--ios-label2) / <alpha-value>)',
+          label3: 'rgb(var(--ios-label3) / <alpha-value>)',
+          separator: 'rgb(var(--ios-separator) / <alpha-value>)',
+          bar: 'rgb(var(--ios-bar) / <alpha-value>)',
+          blue: 'rgb(var(--ios-blue) / <alpha-value>)',
+          green: 'rgb(var(--ios-green) / <alpha-value>)',
+          orange: 'rgb(var(--ios-orange) / <alpha-value>)',
+          red: 'rgb(var(--ios-red) / <alpha-value>)',
+          teal: 'rgb(var(--ios-teal) / <alpha-value>)',
+          indigo: 'rgb(var(--ios-indigo) / <alpha-value>)',
+          purple: 'rgb(var(--ios-purple) / <alpha-value>)',
+          yellow: 'rgb(var(--ios-yellow) / <alpha-value>)',
+          gray: 'rgb(var(--ios-gray) / <alpha-value>)',
+          gray2: 'rgb(var(--ios-gray2) / <alpha-value>)',
+          gray3: 'rgb(var(--ios-gray3) / <alpha-value>)',
+          gray4: 'rgb(var(--ios-gray4) / <alpha-value>)',
+          gray5: 'rgb(var(--ios-gray5) / <alpha-value>)',
+          gray6: 'rgb(var(--ios-gray6) / <alpha-value>)',
+        },
         brand: {
           50: '#ecfdf5',
           100: '#d1fae5',
           200: '#a7f3d0',
           300: '#6ee7b7',
           400: '#34d399',
-          500: '#10b981', // Emerald primary
+          500: '#10b981',
           600: '#059669',
           700: '#047857',
           800: '#065f46',
@@ -33,15 +57,31 @@ export default {
           800: '#1e293b',
           900: '#0f172a',
         },
-        accent: {
-          amber: '#f59e0b',
-          orange: '#ea580c',
-          blue: '#2563eb',
-        }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-      }
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"SF Pro Display"',
+          '"SF Pro Text"',
+          '"SF Pro"',
+          '"Helvetica Neue"',
+          'Helvetica',
+          'Arial',
+          'sans-serif',
+        ],
+      },
+      borderRadius: {
+        'ios-card': '16px',
+        'ios-tile': '12px',
+        'ios-sheet': '24px',
+        'ios-btn': '12px',
+      },
+      boxShadow: {
+        'ios-card': '0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02)',
+        'ios-card-dark': '0 2px 8px rgba(0, 0, 0, 0.4)',
+        'ios-modal': '0 20px 40px rgba(0, 0, 0, 0.25)',
+      },
     },
   },
   plugins: [],

@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { 
   ShoppingBag, 
   Search, 
-  Clock, 
   CheckCircle2, 
-  AlertTriangle, 
-  Package, 
   TrendingUp, 
-  FileText,
-  Truck
+  Truck 
 } from "lucide-react";
 import { OrderTrackerCard } from "../components/dealer/OrderTrackerCard";
 import { OrderRatingModal } from "../components/dealer/OrderRatingModal";
@@ -16,16 +12,18 @@ import { DisputeModal } from "../components/dealer/DisputeModal";
 import { useAuth } from "../context/AuthContext";
 import { useMarketplace } from "../context/MarketplaceContext";
 import { ORDER_STATES } from "../data/categories";
+import { IOSButton } from "../components/ios/IOSButton";
+import { IOSSegmentedControl } from "../components/ios/IOSSegmentedControl";
+import { IOSBadge } from "../components/ios/IOSBadge";
 
 export const DealerDashboard = ({ onBrowseMore }) => {
   const { userProfile } = useAuth();
   const { orders } = useMarketplace();
 
-  const [activeTab, setActiveTab] = useState("active"); // "active" | "completed" | "all"
+  const [activeTab, setActiveTab] = useState("active");
   const [selectedDisputeOrder, setSelectedDisputeOrder] = useState(null);
   const [selectedRatingOrder, setSelectedRatingOrder] = useState(null);
 
-  // Filter orders for this dealer
   const dealerOrders = orders.filter(o => o.dealerUid === (userProfile?.uid || "demo_dealer_002") || o.dealerBusiness === userProfile?.businessName);
 
   const activeOrders = dealerOrders.filter(o => o.orderStatus !== ORDER_STATES.COMPLETED.key && o.orderStatus !== ORDER_STATES.REFUNDED.key);
@@ -39,140 +37,143 @@ export const DealerDashboard = ({ onBrowseMore }) => {
 
   const totalSpent = dealerOrders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
 
+  const tabOptions = [
+    { value: "active", label: "Active Orders", count: activeOrders.length },
+    { value: "completed", label: "Completed", count: completedOrders.length },
+    { value: "all", label: "All Orders", count: dealerOrders.length },
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
+    <div className="min-h-screen bg-ios-bg text-ios-label py-6 sm:py-8 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
-        {/* Header Profile */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl font-bold shadow-md">
-              <ShoppingBag className="w-8 h-8" />
+        {/* iOS Dealer Profile Card */}
+        <div className="bg-ios-bg2 rounded-[24px] border border-ios-separator/20 p-5 sm:p-6 shadow-ios-card dark:shadow-ios-card-dark flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-[16px] bg-ios-blue/15 text-ios-blue flex items-center justify-center text-xl font-bold shrink-0">
+              <ShoppingBag className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl font-black text-slate-900">
+                <h1 className="text-lg sm:text-xl font-black text-ios-label">
                   {userProfile?.businessName || "Singhania Secondary Steel & Alloys"}
                 </h1>
-                <span className="text-[10px] font-bold uppercase bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md">
-                  Delhi Scrap Dealer / Mill
-                </span>
+                <IOSBadge color="blue" variant="tinted">
+                  Delhi Buyer
+                </IOSBadge>
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-ios-label2 mt-0.5">
                 Procurement Hub: {userProfile?.approxLocation || "Mayapuri Phase 2 Secondary Rolling Unit"} • GSTIN: {userProfile?.gstin || "07AAACS9821C1Z4"}
               </p>
             </div>
           </div>
 
-          <button
+          <IOSButton
+            size="md"
+            color="blue"
+            variant="filled"
             onClick={onBrowseMore}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-3 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center gap-2 transition self-start md:self-auto"
+            icon={Search}
+            className="self-start md:self-auto"
           >
-            <Search className="w-4 h-4" />
             Discover More Scrap Lots
-          </button>
+          </IOSButton>
         </div>
 
-        {/* Dealer Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-            <div className="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
-              <span>Active Orders in Transit</span>
-              <Truck className="w-4 h-4 text-emerald-600" />
+        {/* iOS Metric Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+          <div className="bg-ios-bg2 rounded-[18px] border border-ios-separator/20 p-4 shadow-ios-card dark:shadow-ios-card-dark">
+            <div className="flex items-center justify-between text-xs text-ios-label2 font-medium mb-1">
+              <span>Active in Transit</span>
+              <Truck className="w-4 h-4 text-ios-green" />
             </div>
-            <p className="text-2xl font-black text-slate-900">{activeOrders.length} Orders</p>
-            <p className="text-[10px] text-slate-400 mt-1">
-              Awaiting yard loading or dispatch signoff
+            <p className="text-xl sm:text-2xl font-black text-ios-label">{activeOrders.length} Orders</p>
+            <p className="text-[10px] text-ios-label2 mt-1">
+              Awaiting yard loading or dispatch
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-            <div className="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
+          <div className="bg-ios-bg2 rounded-[18px] border border-ios-separator/20 p-4 shadow-ios-card dark:shadow-ios-card-dark">
+            <div className="flex items-center justify-between text-xs text-ios-label2 font-medium mb-1">
               <span>Settled Deliveries</span>
-              <CheckCircle2 className="w-4 h-4 text-blue-600" />
+              <CheckCircle2 className="w-4 h-4 text-ios-blue" />
             </div>
-            <p className="text-2xl font-black text-slate-900">{completedOrders.length} Completed</p>
-            <p className="text-[10px] text-slate-400 mt-1">
-              Weighbridge slips verified and archived
+            <p className="text-xl sm:text-2xl font-black text-ios-label">{completedOrders.length} Completed</p>
+            <p className="text-[10px] text-ios-label2 mt-1">
+              Weighbridge slips verified
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-            <div className="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
-              <span>Total Material Procured</span>
-              <TrendingUp className="w-4 h-4 text-indigo-600" />
+          <div className="bg-ios-bg2 rounded-[18px] border border-ios-separator/20 p-4 shadow-ios-card dark:shadow-ios-card-dark">
+            <div className="flex items-center justify-between text-xs text-ios-label2 font-medium mb-1">
+              <span>Procurement Volume</span>
+              <TrendingUp className="w-4 h-4 text-ios-purple" />
             </div>
-            <p className="text-2xl font-black text-slate-900">
-              ₹{totalSpent.toLocaleString('en-IN')}
-            </p>
-            <p className="text-[10px] text-slate-400 mt-1">
-              Procurement volume across Indian Mandis
+            <p className="text-xl sm:text-2xl font-black text-ios-label">₹{totalSpent.toLocaleString('en-IN')}</p>
+            <p className="text-[10px] text-ios-green mt-1 font-medium">
+              ✓ Direct mill procurement
             </p>
           </div>
         </div>
 
-        {/* Tab Filters */}
-        <div className="flex items-center gap-2 border-b border-slate-200 pb-2">
-          <button
-            onClick={() => setActiveTab("active")}
-            className={`px-4 py-2 text-xs font-bold rounded-xl transition ${
-              activeTab === "active" ? "bg-slate-900 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"
-            }`}
-          >
-            Active In-Progress Orders ({activeOrders.length})
-          </button>
-          <button
-            onClick={() => setActiveTab("completed")}
-            className={`px-4 py-2 text-xs font-bold rounded-xl transition ${
-              activeTab === "completed" ? "bg-slate-900 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"
-            }`}
-          >
-            Completed & Settled Archive ({completedOrders.length})
-          </button>
+        {/* iOS Segmented Navigation */}
+        <div className="max-w-md">
+          <IOSSegmentedControl
+            options={tabOptions}
+            value={activeTab}
+            onChange={setActiveTab}
+          />
         </div>
 
         {/* Orders List */}
-        {displayedOrders.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-4">
-            <Package className="w-12 h-12 text-slate-300 mx-auto" />
-            <h4 className="text-base font-bold text-slate-800">No Orders in this Section</h4>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              Find raw recyclable streams in the scrap catalog to place atomic spot purchase orders.
-            </p>
-            <button
-              onClick={onBrowseMore}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition"
-            >
-              Browse Scrap Catalog
-            </button>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {displayedOrders.map((order) => (
+        <div className="space-y-4">
+          {displayedOrders.length === 0 ? (
+            <div className="bg-ios-bg2 rounded-[20px] border border-ios-separator/20 p-8 sm:p-12 text-center space-y-3 shadow-ios-card dark:shadow-ios-card-dark">
+              <ShoppingBag className="w-12 h-12 text-ios-gray mx-auto" />
+              <h3 className="text-base font-bold text-ios-label">No orders in this view</h3>
+              <p className="text-xs text-ios-label2 max-w-sm mx-auto">
+                Explore available scrap lots and place direct weighbridge-guaranteed orders.
+              </p>
+              <div className="pt-2">
+                <IOSButton
+                  color="blue"
+                  variant="tinted"
+                  onClick={onBrowseMore}
+                >
+                  Browse Available Scrap Lots
+                </IOSButton>
+              </div>
+            </div>
+          ) : (
+            displayedOrders.map((order) => (
               <OrderTrackerCard
                 key={order.id}
                 order={order}
-                onRaiseDispute={(ord) => setSelectedDisputeOrder(ord)}
-                onOpenRatingModal={(ord) => setSelectedRatingOrder(ord)}
+                onOpenDispute={(ord) => setSelectedDisputeOrder(ord)}
+                onOpenRating={(ord) => setSelectedRatingOrder(ord)}
               />
-            ))}
-          </div>
-        )}
+            ))
+          )}
+        </div>
 
       </div>
 
-      {/* Modals */}
-      <DisputeModal
-        isOpen={!!selectedDisputeOrder}
-        onClose={() => setSelectedDisputeOrder(null)}
-        order={selectedDisputeOrder}
-      />
+      {/* Dispute & Rating Sheets */}
+      {selectedDisputeOrder && (
+        <DisputeModal
+          isOpen={Boolean(selectedDisputeOrder)}
+          onClose={() => setSelectedDisputeOrder(null)}
+          order={selectedDisputeOrder}
+        />
+      )}
 
-      <OrderRatingModal
-        isOpen={!!selectedRatingOrder}
-        onClose={() => setSelectedRatingOrder(null)}
-        order={selectedRatingOrder}
-      />
+      {selectedRatingOrder && (
+        <OrderRatingModal
+          isOpen={Boolean(selectedRatingOrder)}
+          onClose={() => setSelectedRatingOrder(null)}
+          order={selectedRatingOrder}
+        />
+      )}
     </div>
   );
 };

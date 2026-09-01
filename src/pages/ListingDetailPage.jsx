@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { 
-  ArrowLeft, 
+  ChevronLeft, 
   MapPin, 
   ShieldCheck, 
   Star, 
@@ -9,15 +9,15 @@ import {
   Clock, 
   CheckCircle2, 
   Truck, 
-  Sparkles, 
-  Phone, 
   Share2, 
-  AlertTriangle,
   FileText
 } from "lucide-react";
 import { TrustBadge } from "../components/common/TrustBadge";
 import { PriceDisclaimer } from "../components/common/PriceDisclaimer";
 import { LISTING_STATES } from "../data/categories";
+import { IOSButton } from "../components/ios/IOSButton";
+import { IOSBadge } from "../components/ios/IOSBadge";
+import { IOSCard, IOSRow } from "../components/ios/IOSCard";
 
 export const ListingDetailPage = ({ listing, onBack, onOpenOrderModal }) => {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
@@ -26,7 +26,7 @@ export const ListingDetailPage = ({ listing, onBack, onOpenOrderModal }) => {
   if (!listing) return null;
 
   const photos = listing.photos?.length ? listing.photos : [
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=80"
+    `/images/scrap-${listing.category === 'non_ferrous' ? 'copper' : listing.category === 'rubber_glass' ? 'tyres' : listing.category || 'loha'}.svg`
   ];
 
   const isAvailable = listing.status === LISTING_STATES.AVAILABLE && listing.quantityAvailable > 0;
@@ -38,254 +38,213 @@ export const ListingDetailPage = ({ listing, onBack, onOpenOrderModal }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-ios-bg text-ios-label py-4 sm:py-8 transition-colors">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
-        {/* Navigation & Actions Top Bar */}
-        <div className="flex items-center justify-between pb-6">
+        {/* iOS Navigation Header */}
+        <div className="flex items-center justify-between">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3 py-2 rounded-xl shadow-sm transition"
+            className="inline-flex items-center gap-1 text-ios-blue text-sm font-semibold active:opacity-60 transition cursor-pointer select-none"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Listings Catalog
+            <ChevronLeft className="w-5 h-5 -ml-1.5" />
+            <span>Browse Lots</span>
           </button>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleShare}
-              className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-3 py-2 rounded-xl shadow-sm transition"
-            >
-              <Share2 className="w-3.5 h-3.5" />
-              {copied ? "Link Copied!" : "Share Lot"}
-            </button>
-          </div>
+          <button
+            onClick={handleShare}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-ios-blue bg-ios-bg2 px-3 py-1.5 rounded-full border border-ios-separator/20 shadow-xs active:scale-95 transition cursor-pointer select-none"
+          >
+            <Share2 className="w-3.5 h-3.5" />
+            <span>{copied ? "Copied!" : "Share"}</span>
+          </button>
         </div>
 
-        {/* Main Listing Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
-          {/* Left Column: Photo Gallery & Specs */}
-          <div className="lg:col-span-7 space-y-6">
+        {/* Hero Gallery Card */}
+        <div className="bg-ios-bg2 rounded-[20px] border border-ios-separator/20 overflow-hidden shadow-ios-card dark:shadow-ios-card-dark">
+          <div className="relative h-64 sm:h-80 w-full bg-ios-bg3">
+            <img
+              src={photos[selectedPhotoIndex]}
+              alt={listing.subCategoryName || listing.subCategory}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.src = "/images/scrap-loha.svg";
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             
-            {/* Gallery Main Photo */}
-            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-              <div className="relative h-80 sm:h-96 w-full bg-slate-900">
-                <img
-                  src={photos[selectedPhotoIndex]}
-                  alt={listing.subCategoryName || listing.subCategory}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-4 left-4 flex gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wider bg-slate-900/80 backdrop-blur text-white px-3 py-1 rounded-full border border-slate-700">
-                    {listing.category?.replace('_', ' ')}
-                  </span>
-                  <span className="text-xs font-bold bg-emerald-500 text-white px-3 py-1 rounded-full">
-                    {listing.grade || "Standard Grade"}
-                  </span>
-                </div>
-              </div>
-
-              {/* Thumbnails if multiple */}
-              {photos.length > 1 && (
-                <div className="p-3 bg-slate-50 flex gap-2 overflow-x-auto border-t border-slate-100">
-                  {photos.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setSelectedPhotoIndex(idx)}
-                      className={`relative w-16 h-16 rounded-lg overflow-hidden border-2 shrink-0 transition ${
-                        selectedPhotoIndex === idx ? "border-emerald-600 shadow" : "border-transparent opacity-70 hover:opacity-100"
-                      }`}
-                    >
-                      <img src={img} alt="Thumbnail" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
+            <div className="absolute top-3 left-3 right-3 flex justify-between items-center">
+              <span className="text-xs font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-full border border-white/20">
+                {listing.category?.replace('_', ' ')}
+              </span>
+              <IOSBadge color={isAvailable ? "green" : "red"} variant="filled">
+                {isAvailable ? "● In Stock" : "Sold Out"}
+              </IOSBadge>
             </div>
 
-            {/* Material Specifications & Quality Breakdown */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <FileText className="w-4 h-4 text-emerald-600" />
-                Material Specifications & Inspection Details
-              </h3>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-slate-400 font-medium block">Category</span>
-                  <span className="font-bold text-slate-900 text-sm mt-0.5 capitalize">
-                    {listing.category?.replace('_', ' ')}
-                  </span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-slate-400 font-medium block">Standard Grade</span>
-                  <span className="font-bold text-slate-900 text-sm mt-0.5">
-                    {listing.grade}
-                  </span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-slate-400 font-medium block">Min Order Size</span>
-                  <span className="font-bold text-slate-900 text-sm mt-0.5">
-                    {listing.minOrderQuantity || 1} {listing.unit}
-                  </span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-slate-400 font-medium block">GST Status</span>
-                  <span className="font-bold text-emerald-700 text-sm mt-0.5">
-                    {listing.gstApplicable ? "18% GST Extra (Input Credit)" : "GST Included"}
-                  </span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-slate-400 font-medium block">Weighbridge Proof</span>
-                  <span className="font-bold text-slate-900 text-sm mt-0.5">
-                    Mandatory at Gate
-                  </span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-slate-400 font-medium block">Inspection Mode</span>
-                  <span className="font-bold text-slate-900 text-sm mt-0.5">
-                    Yard Visit Allowed
-                  </span>
-                </div>
-              </div>
-
-              {/* Vendor Description */}
-              {listing.description && (
-                <div className="pt-2">
-                  <h4 className="text-xs font-bold text-slate-700 mb-1">Vendor Lot Notes</h4>
-                  <p className="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-100 leading-relaxed">
-                    {listing.description}
-                  </p>
-                </div>
-              )}
+            <div className="absolute bottom-3 left-4 right-4 text-white">
+              <p className="text-xs font-semibold text-ios-green">
+                {listing.grade || "Standard Grade"}
+              </p>
+              <h1 className="text-xl sm:text-2xl font-black truncate text-white">
+                {listing.subCategoryName || listing.subCategory}
+              </h1>
             </div>
+          </div>
+
+          {/* Thumbnails if multiple */}
+          {photos.length > 1 && (
+            <div className="p-3 bg-ios-bg3/50 flex gap-2 overflow-x-auto border-t border-ios-separator/15">
+              {photos.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedPhotoIndex(idx)}
+                  className={`relative w-14 h-14 rounded-[10px] overflow-hidden border-2 shrink-0 transition ${
+                    selectedPhotoIndex === idx ? "border-ios-blue shadow" : "border-transparent opacity-60 hover:opacity-100"
+                  }`}
+                >
+                  <img src={img} alt="Thumbnail" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* 2-Column Info Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          {/* Left Column: Grouped Specs */}
+          <div className="lg:col-span-7 space-y-5">
+            
+            {/* iOS Grouped Specification List */}
+            <IOSCard title="Material Specifications & Inspection">
+              <IOSRow label="Category" value={listing.category?.replace('_', ' ')} />
+              <IOSRow label="Standard Grade" value={listing.grade} />
+              <IOSRow label="Min Order Quantity" value={`${listing.minOrderQuantity || 1} ${listing.unit}`} />
+              <IOSRow label="GST Status" value={listing.gstApplicable ? "18% GST Extra" : "GST Included"} />
+              <IOSRow label="Weighbridge Proof" value="Dharam Kanta Slip Mandatory" />
+              <IOSRow label="Yard Inspection" value="Physical Visit Permitted" divider={false} />
+            </IOSCard>
+
+            {/* Lot Notes */}
+            {listing.description && (
+              <IOSCard title="Vendor Lot Notes">
+                <div className="p-4 text-xs text-ios-label2 leading-relaxed">
+                  {listing.description}
+                </div>
+              </IOSCard>
+            )}
 
             {/* Price Disclaimer */}
             <PriceDisclaimer region={listing.city || "Delhi-NCR"} />
-
           </div>
 
-          {/* Right Column: Pricing, Ordering & Verified Seller Card */}
-          <div className="lg:col-span-5 space-y-6">
+          {/* Right Column: Pricing, Ordering & Verified Seller */}
+          <div className="lg:col-span-5 space-y-5">
             
-            {/* Instant Pricing & Buy Box */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xl space-y-5">
-              
+            {/* Price Box */}
+            <div className="bg-ios-bg2 rounded-[20px] border border-ios-separator/20 p-5 space-y-4 shadow-ios-card dark:shadow-ios-card-dark">
               <div>
-                <span className="text-xs font-semibold text-slate-500">Live Spot Rate</span>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-3xl font-black text-slate-900">
+                <span className="text-xs font-semibold text-ios-label2">Live Spot Rate</span>
+                <div className="flex items-baseline gap-2 mt-0.5">
+                  <span className="text-3xl font-black text-ios-label">
                     ₹{Number(listing.pricePerUnit).toLocaleString('en-IN')}
                   </span>
-                  <span className="text-sm font-semibold text-slate-500">
+                  <span className="text-sm font-semibold text-ios-label2">
                     / {listing.unit}
                   </span>
                 </div>
-                <p className="text-[11px] text-emerald-600 font-medium mt-0.5">
-                  ✓ Verified Spot Price (Zero Broker Markups)
+                <p className="text-[11px] text-ios-green font-medium mt-0.5">
+                  ✓ Verified Spot Price (Zero Dalal Commission)
                 </p>
               </div>
 
-              {/* Inventory Meter */}
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+              {/* Stock Meter */}
+              <div className="p-3 rounded-[14px] bg-ios-bg3/60 border border-ios-separator/15 space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-slate-600">Available Stock:</span>
-                  <span className="font-black text-slate-900 text-sm">
+                  <span className="font-semibold text-ios-label2">Available Stock:</span>
+                  <span className="font-bold text-ios-green">
                     {Number(listing.quantityAvailable).toLocaleString('en-IN')} {listing.unit}
                   </span>
                 </div>
-                <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-ios-gray4/40 h-2 rounded-full overflow-hidden">
                   <div 
-                    className="bg-emerald-500 h-full rounded-full transition-all"
+                    className="bg-ios-green h-full rounded-full transition-all"
                     style={{ 
                       width: `${Math.min(100, Math.max(15, (listing.quantityAvailable / (listing.totalInitialQuantity || listing.quantityAvailable || 1)) * 100))}%` 
                     }}
                   />
                 </div>
-                <p className="text-[10px] text-slate-500">
-                  Atomic inventory lock prevents overselling across concurrent buyers.
-                </p>
               </div>
 
               {/* Order Button */}
-              <button
-                onClick={() => onOpenOrderModal(listing)}
+              <IOSButton
+                fullWidth
+                size="lg"
+                color="green"
+                variant="filled"
                 disabled={!isAvailable}
-                className={`w-full py-4 rounded-xl text-sm font-black shadow-lg transition flex items-center justify-center gap-2 ${
-                  isAvailable 
-                    ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-500/20" 
-                    : "bg-slate-200 text-slate-400 cursor-not-allowed"
-                }`}
+                onClick={() => onOpenOrderModal(listing)}
+                icon={Truck}
               >
-                <Truck className="w-5 h-5" />
-                <span>{isAvailable ? "Order Full or Partial Lot" : "Material Sold Out"}</span>
-              </button>
+                {isAvailable ? "Order Full or Partial Lot" : "Material Sold Out"}
+              </IOSButton>
 
-              {/* Trust Safeguards */}
-              <div className="space-y-2 pt-2 border-t border-slate-100 text-xs text-slate-600">
+              {/* Trust Features */}
+              <div className="space-y-2 pt-2 border-t border-ios-separator/15 text-xs text-ios-label2">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span><strong>Payment Protection:</strong> Funds authorized & held until acceptance.</span>
+                  <ShieldCheck className="w-4 h-4 text-ios-green shrink-0" />
+                  <span><strong>Payment Protection:</strong> Funds authorized & held in escrow.</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Scale className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span><strong>Weighbridge SLA:</strong> Standard tare weight reconciliation.</span>
+                  <Scale className="w-4 h-4 text-ios-green shrink-0" />
+                  <span><strong>Weighbridge SLA:</strong> Electronic Dharam Kanta weight slip.</span>
                 </div>
               </div>
-
             </div>
 
-            {/* Seller Accreditation Card */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-              <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+            {/* Seller Profile Card */}
+            <div className="bg-ios-bg2 rounded-[20px] border border-ios-separator/20 p-5 space-y-3.5 shadow-ios-card dark:shadow-ios-card-dark">
+              <h3 className="text-[10px] font-bold text-ios-label3 uppercase tracking-wider">
                 Accredited Scrap Vendor Profile
               </h3>
 
               <div className="flex items-start justify-between">
                 <div>
-                  <h4 className="text-base font-bold text-slate-900">
+                  <h4 className="text-sm sm:text-base font-bold text-ios-label">
                     {listing.vendorBusiness || listing.vendorName}
                   </h4>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-xs text-ios-label2 mt-0.5">
                     Contact: {listing.vendorName}
                   </p>
                 </div>
-                <div className="flex items-center gap-1 bg-amber-50 border border-amber-200 px-2 py-1 rounded-lg text-amber-900 text-xs font-bold">
-                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+                <div className="flex items-center gap-1 bg-ios-orange/15 px-2 py-0.5 rounded-full text-ios-orange text-xs font-bold">
+                  <Star className="w-3 h-3 fill-ios-orange text-ios-orange" />
                   <span>{listing.vendorRating || 4.9}</span>
-                  <span className="text-slate-400 font-normal">({listing.vendorReviewsCount || 14})</span>
                 </div>
               </div>
 
-              {/* Approximate Location Notice (PRD Section 5.1 Privacy Rule) */}
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs space-y-1">
-                <div className="flex items-center gap-1.5 font-bold text-slate-800">
-                  <MapPin className="w-3.5 h-3.5 text-slate-500" />
-                  <span>{listing.approxLocation || listing.city}, {listing.state || "India"}</span>
+              {/* Location Privacy Rule */}
+              <div className="p-3 rounded-[12px] bg-ios-bg3/60 border border-ios-separator/15 text-xs space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-ios-label">
+                  <MapPin className="w-3.5 h-3.5 text-ios-green" />
+                  <span>{listing.approxLocation || listing.city}, {listing.state || "Delhi"}</span>
                 </div>
-                <p className="text-[11px] text-slate-500">
-                  Approximate yard area. Exact private address & weighbridge gate coordinates are securely unlocked upon order acceptance.
+                <p className="text-[10px] text-ios-label3">
+                  Approximate yard area. Exact private gate coordinates unlocked after order authorization.
                 </p>
               </div>
 
-              {/* Badges */}
-              <div className="flex flex-wrap gap-1.5 pt-1">
+              {/* Trust Badges */}
+              <div className="flex flex-wrap gap-1 pt-1">
                 <TrustBadge type="phone" verified={true} size="md" />
                 <TrustBadge type="gstin" verified={true} size="md" />
                 <TrustBadge type="business" verified={true} size="md" />
                 <TrustBadge type="history" count={28} size="md" />
               </div>
-
             </div>
 
           </div>
-
         </div>
 
       </div>
